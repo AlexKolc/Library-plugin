@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2"> 
+  <plugin-info> 
+    <description>${project.description}</description>  
+    <version>${project.version}</version>  
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
+    <param name="plugin-icon">images/pluginIcon.png</param>  
+    <param name="plugin-logo">images/pluginLogo.png</param> 
+  </plugin-info>  
+  <!-- add our i18n resource -->  
+  <resource type="i18n" name="i18n" location="Library"/>  
+  <!-- add our web resources -->
+
+  <ao key="ao-module">
+    <description>The module configuring the Active Objects service used by this plugin</description>
+    <entity>com.atlassian.confluence.ao.Book</entity>
+  </ao>
+
+  <web-section key="test1" name="test1" location="system.admin.top.navigation.bar">
+    <label key="New Admin Menu Button"/>
+  </web-section>
+
+  <web-item key="test2" name="test2" section="test1" weight="10">
+    <label key="test2"/>
+    <styleClass>Library</styleClass>
+    <link linkId="test2">http://google.com</link>
+  </web-item>
+
+
+<!--  <web-resource key="Library-resources" name="Library Web Resources"> -->
+<!--    <dependency>com.atlassian.auiplugin:ajs</dependency>  -->
+<!--    <resource type="download" name="Library.css" location="/css/Library.css"/>  -->
+<!--    <resource type="download" name="Library.js" location="/js/Library.js"/>  -->
+<!--    <resource type="download" name="images/" location="/images"/>  -->
+<!--    <context>Library</context> -->
+<!--  </web-resource>-->
+
+<!--  <web-item name="library-entity" i18n-name-key="library-entity.name" key="library-entity" section="system.user/user-content" weight="1000"> -->
+<!--    <description key="library-entity.description">The library-entity Plugin</description>  -->
+<!--    <label key="library-entity.label"/>  -->
+<!--    <link linkId="library-entity-link">/secure/Library.jspa</link> -->
+<!--  </web-item>-->
+
+<!--  <servlet name="Library Servlet" i18n-name-key="library-servlet.name" key="library-servlet" class="com.atlassian.confluence.servlet.LibraryServlet"> -->
+<!--    <description key="library-servlet.description">The Library Servlet Plugin</description>  -->
+<!--    <url-pattern>/library/servlet</url-pattern>-->
+<!--  </servlet>-->
+</atlassian-plugin>
