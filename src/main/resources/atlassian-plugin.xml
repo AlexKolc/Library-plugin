@@ -14,36 +14,33 @@
 
   <ao key="ao-module">
     <description>The module configuring the Active Objects service used by this plugin</description>
+    <entity>com.atlassian.confluence.ao.Author</entity>
     <entity>com.atlassian.confluence.ao.Book</entity>
+    <entity>com.atlassian.confluence.ao.BookCopy</entity>
+    <entity>com.atlassian.confluence.ao.BookToAuthor</entity>
+    <entity>com.atlassian.confluence.ao.BookToEditionType</entity>
+    <entity>com.atlassian.confluence.ao.BookToTag</entity>
+    <entity>com.atlassian.confluence.ao.Commentary</entity>
+    <entity>com.atlassian.confluence.ao.EditionType</entity>
+    <entity>com.atlassian.confluence.ao.Lending</entity>
+    <entity>com.atlassian.confluence.ao.Publisher</entity>
+    <entity>com.atlassian.confluence.ao.Reservation</entity>
+    <entity>com.atlassian.confluence.ao.Tag</entity>
   </ao>
 
-  <web-section key="test1" name="test1" location="system.admin.top.navigation.bar">
-    <label key="New Admin Menu Button"/>
-  </web-section>
-
-  <web-item key="test2" name="test2" section="test1" weight="10">
-    <label key="test2"/>
-    <styleClass>Library</styleClass>
-    <link linkId="test2">http://google.com</link>
+  <web-item name="library-entity" key="library-entity" section="system.user/user-content">
+    <description key="library-entity.desc">Adds the "Library" action into users's menu</description>
+    <label key="Библиотека"/>
+    <link linkId="library-entity">/secure/Library.jspa</link>
   </web-item>
 
+  <servlet name="Library servlet" key="library-servlet" class="com.atlassian.confluence.servlet.LibraryServlet">
+    <description key="library-servlet.desc">A servlet for library page </description>
+    <url-pattern>/library</url-pattern>
+  </servlet>
 
-<!--  <web-resource key="Library-resources" name="Library Web Resources"> -->
-<!--    <dependency>com.atlassian.auiplugin:ajs</dependency>  -->
-<!--    <resource type="download" name="Library.css" location="/css/Library.css"/>  -->
-<!--    <resource type="download" name="Library.js" location="/js/Library.js"/>  -->
-<!--    <resource type="download" name="images/" location="/images"/>  -->
-<!--    <context>Library</context> -->
-<!--  </web-resource>-->
+  <routing key="library-routing" path="/secure">
+    <route from="Library.jspa" to="/plugins/servlet/library"/>
+  </routing>
 
-<!--  <web-item name="library-entity" i18n-name-key="library-entity.name" key="library-entity" section="system.user/user-content" weight="1000"> -->
-<!--    <description key="library-entity.description">The library-entity Plugin</description>  -->
-<!--    <label key="library-entity.label"/>  -->
-<!--    <link linkId="library-entity-link">/secure/Library.jspa</link> -->
-<!--  </web-item>-->
-
-<!--  <servlet name="Library Servlet" i18n-name-key="library-servlet.name" key="library-servlet" class="com.atlassian.confluence.servlet.LibraryServlet"> -->
-<!--    <description key="library-servlet.description">The Library Servlet Plugin</description>  -->
-<!--    <url-pattern>/library/servlet</url-pattern>-->
-<!--  </servlet>-->
 </atlassian-plugin>
