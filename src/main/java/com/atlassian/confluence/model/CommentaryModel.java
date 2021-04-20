@@ -1,12 +1,21 @@
 package com.atlassian.confluence.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement
 public class CommentaryModel {
+    @XmlElement
     private int id;
+    @XmlElement
     private int bookId;
+    @XmlElement
     private String description;
+    @XmlElement
     private Date createdDate;
+
+    private CommentaryModel() {}
 
     public int getId() {
         return id;

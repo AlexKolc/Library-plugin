@@ -2,19 +2,37 @@ package com.atlassian.confluence.model;
 
 import com.atlassian.confluence.ao.Book;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class BookModel {
+    @XmlElement
     private int id;
+    @XmlElement
     private String name;
+    @XmlElement
     private String isnb;
+    @XmlElement
     private int yearPublishing;
+    @XmlElement
     private int pageVolume;
+    @XmlElement
     private int countCopies;
+    @XmlElement
     private String description;
+    @XmlElement
     private String imageUrl;
+    @XmlElement
     private String publisher;
+    @XmlElement
     private AuthorModel[] authors;
+    @XmlElement
     private TagModel[] tags;
+    @XmlElement
     private EditionTypeModel[] editionTypes;
+
+    private BookModel() {}
 
     public BookModel(Book book) {
         setId(book.getID());

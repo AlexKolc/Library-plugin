@@ -1,14 +1,25 @@
 package com.atlassian.confluence.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement
 public class LendingModel {
+    @XmlElement
     private int id;
+    @XmlElement
     private String status;
+    @XmlElement
     private Date dateOfIssue;
+    @XmlElement
     private int returnPeriod;
+    @XmlElement
     private Date returnDate;
+    @XmlElement
     private boolean isLost;
+
+    private LendingModel() {}
 
     public int getId() {
         return id;
