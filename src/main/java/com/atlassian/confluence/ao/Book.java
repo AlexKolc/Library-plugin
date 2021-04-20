@@ -8,28 +8,40 @@ import net.java.ao.schema.StringLength;
 public interface Book extends Entity {
 
     String getName();
+
     void setName(String name);
 
     String getIsnb();
+
     void setIsnb(String isnb);
 
     int getYearPublishing();
+
     void setYearPublishing(int yearPublishing);
 
     int getPageVolume();
+
     void setPageVolume(int pageVolume);
 
     int getCountCopies();
+
     void setCountCopies(int countCopies);
 
     @StringLength(StringLength.UNLIMITED)
+    String getPublisher();
+
+    void setPublisher(String publisher);
+
+    String getImageUrl();
+
+    void setImageUrl(String imageUrl);
+
+    @StringLength(StringLength.UNLIMITED)
     String getDescription();
+
     void setDescription(String description);
 
     // linked tables
-
-    Publisher getPublisher();
-    void setPublisher(Publisher publisher);
 
     @ManyToMany(value = BookToAuthor.class)
     Author[] getAuthors();
@@ -40,11 +52,8 @@ public interface Book extends Entity {
     @ManyToMany(value = BookToEditionType.class)
     EditionType[] getEditionTypes();
 
-    @OneToMany
-    BookCopy[] getBookCopies();
-
-    @OneToMany
-    Reservation[] getReservations();
+    @ManyToMany(value = BookToLending.class)
+    Lending[] getLendings();
 
     @OneToMany
     Commentary[] getCommentaries();

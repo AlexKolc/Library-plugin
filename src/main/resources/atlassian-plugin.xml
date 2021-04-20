@@ -16,15 +16,13 @@
     <description>The module configuring the Active Objects service used by this plugin</description>
     <entity>com.atlassian.confluence.ao.Author</entity>
     <entity>com.atlassian.confluence.ao.Book</entity>
-    <entity>com.atlassian.confluence.ao.BookCopy</entity>
     <entity>com.atlassian.confluence.ao.BookToAuthor</entity>
     <entity>com.atlassian.confluence.ao.BookToEditionType</entity>
+    <entity>com.atlassian.confluence.ao.BookToLending</entity>
     <entity>com.atlassian.confluence.ao.BookToTag</entity>
     <entity>com.atlassian.confluence.ao.Commentary</entity>
     <entity>com.atlassian.confluence.ao.EditionType</entity>
     <entity>com.atlassian.confluence.ao.Lending</entity>
-    <entity>com.atlassian.confluence.ao.Publisher</entity>
-    <entity>com.atlassian.confluence.ao.Reservation</entity>
     <entity>com.atlassian.confluence.ao.Tag</entity>
   </ao>
 
@@ -35,12 +33,27 @@
   </web-item>
 
   <servlet name="Library servlet" key="library-servlet" class="com.atlassian.confluence.servlet.LibraryServlet">
-    <description key="library-servlet.desc">A servlet for library page </description>
+    <description key="library-servlet.desc">A servlet for library page</description>
     <url-pattern>/library</url-pattern>
+<!--    <component-import key="velocity-renderer" interface="com.atlassian.templaterenderer.TemplateRenderer" />-->
   </servlet>
 
   <routing key="library-routing" path="/secure">
     <route from="Library.jspa" to="/plugins/servlet/library"/>
   </routing>
+
+  <web-resource key="library-servlet-resources" name="Library Web Resource">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="Library.js" location="/js/Library.js"/>
+    <resource type="download" name="Library.css" location="/css/Library.css"/>
+    <context>alt.general</context>
+  </web-resource>
+
+  <web-resource key="no-confluence-user" name="No Confluence User Web Resource">
+<!--    <dependency>com.atlassian.auiplugin:ajs</dependency>-->
+<!--    <resource type="download" name="Library.js" location="/js/Library.js"/>-->
+<!--    <resource type="download" name="Library.css" location="/css/Library.css"/>-->
+<!--    <context>alt.general</context>-->
+  </web-resource>
 
 </atlassian-plugin>

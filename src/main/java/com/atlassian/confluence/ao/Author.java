@@ -10,12 +10,6 @@ public interface Author extends Entity {
     String getFullName();
     void setFullName(String fullName);
 
-    Date getDateOfBirth();
-    void setDateOfBirth(Date dateOfBirth);
-
-    String getCountry();
-    void setCountry(String country);
-
     // linked tables
 
     @ManyToMany(value = BookToAuthor.class)
