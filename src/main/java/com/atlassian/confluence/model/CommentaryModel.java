@@ -1,5 +1,7 @@
 package com.atlassian.confluence.model;
 
+import com.atlassian.confluence.ao.Commentary;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
@@ -16,6 +18,13 @@ public class CommentaryModel {
     private Date createdDate;
 
     private CommentaryModel() {}
+
+    public CommentaryModel(Commentary commentary) {
+        id = commentary.getID();
+        bookId = commentary.getID();
+        description = commentary.getDescription();
+        createdDate = commentary.getCreatedDate();
+    }
 
     public int getId() {
         return id;
@@ -41,11 +50,11 @@ public class CommentaryModel {
         this.description = description;
     }
 
-    Date getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 }

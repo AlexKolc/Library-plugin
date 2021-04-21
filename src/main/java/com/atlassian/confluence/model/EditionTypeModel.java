@@ -13,10 +13,12 @@ public class EditionTypeModel {
     @XmlElement
     private String typeName;
 
-    private EditionTypeModel() {}
+    private EditionTypeModel() {
+    }
 
     public EditionTypeModel(EditionType editionType) {
-        typeName= editionType.getTypeName();
+        id = editionType.getID();
+        typeName = editionType.getTypeName();
     }
 
     public int getId() {

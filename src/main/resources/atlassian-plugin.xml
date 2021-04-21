@@ -42,6 +42,10 @@
     <route from="Library.jspa" to="/plugins/servlet/library"/>
   </routing>
 
+  <rest key="libraryRest" path="/library" version="1.0" context="host:port">
+    <description>Rest-service: response on JS requests</description>
+  </rest>
+
   <web-resource key="library-servlet-resources" name="Library Web Resource">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="Library.js" location="/js/Library.js"/>

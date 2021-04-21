@@ -16,6 +16,7 @@ public class TagModel {
     private TagModel() {}
 
     public TagModel(Tag tag) {
+        id = tag.getID();
         name = tag.getName();
     }
 

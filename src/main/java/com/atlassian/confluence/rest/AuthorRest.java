@@ -6,9 +6,7 @@
 //import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 //
 //import javax.inject.Inject;
-//import javax.ws.rs.Consumes;
-//import javax.ws.rs.POST;
-//import javax.ws.rs.Path;
+//import javax.ws.rs.*;
 //import javax.ws.rs.core.MediaType;
 //import javax.ws.rs.core.Response;
 //
@@ -17,15 +15,15 @@
 //    private final AuthorService authorService;
 //
 //    @Inject
-//    AuthorRest(@ComponentImport AuthorService authorService) {
+//    AuthorRest(AuthorService authorService) {
 //        this.authorService = authorService;
 //    }
 //
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Path("/addAuthor")
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/getAuthors")
 //    public Response addAuthor(AuthorModel authorModel) {
-//        authorService.addAuthor(authorModel);
+//        authorService.getAuthors();
 //        return Response.ok().build();
 //    }
 //}

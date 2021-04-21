@@ -19,6 +19,13 @@ public class LendingModel {
     @XmlElement
     private boolean isLost;
 
+    // Status
+    //   Забронировано
+    //   Ожидается выдача
+    //   На руках
+    //   Возвращено
+    //   Потеряно
+
     private LendingModel() {}
 
     public int getId() {

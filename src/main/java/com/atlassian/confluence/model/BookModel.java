@@ -26,11 +26,11 @@ public class BookModel {
     @XmlElement
     private String publisher;
     @XmlElement
-    private AuthorModel[] authors;
-    @XmlElement
-    private TagModel[] tags;
-    @XmlElement
-    private EditionTypeModel[] editionTypes;
+    private String authors;
+//    @XmlElement
+//    private TagModel[] tags;
+//    @XmlElement
+//    private EditionTypeModel[] editionTypes;
 
     private BookModel() {}
 
@@ -117,27 +117,27 @@ public class BookModel {
         this.publisher = publisher;
     }
 
-    public AuthorModel[] getAuthors() {
+    public String getAuthors() {
         return authors;
     }
 
-    public void setAuthors(AuthorModel[] authors) {
+    public void setAuthors(String authors) {
         this.authors = authors;
     }
 
-    public TagModel[] getTags() {
-        return tags;
-    }
-
-    public void setTags(TagModel[] tags) {
-        this.tags = tags;
-    }
-
-    public EditionTypeModel[] getEditionTypes() {
-        return editionTypes;
-    }
-
-    public void setEditionTypes(EditionTypeModel[] editionTypes) {
-        this.editionTypes = editionTypes;
-    }
+//    public TagModel[] getTags() {
+//        return tags;
+//    }
+//
+//    public void setTags(TagModel[] tags) {
+//        this.tags = tags;
+//    }
+//
+//    public EditionTypeModel[] getEditionTypes() {
+//        return editionTypes;
+//    }
+//
+//    public void setEditionTypes(EditionTypeModel[] editionTypes) {
+//        this.editionTypes = editionTypes;
+//    }
 }
