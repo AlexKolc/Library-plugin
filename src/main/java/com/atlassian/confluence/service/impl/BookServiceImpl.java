@@ -2,7 +2,6 @@ package com.atlassian.confluence.service.impl;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.confluence.ao.*;
-import com.atlassian.confluence.ao.BookToLending;
 import com.atlassian.confluence.model.*;
 import com.atlassian.confluence.service.BookService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
@@ -73,11 +72,9 @@ public class BookServiceImpl implements BookService {
             ao.delete(commentary);
         }
 
-        BookToLending[] bookToLendings = ao.find(BookToLending.class, Query.select().where("BOOK LIKE ?", id));
-        for (BookToLending bookToLending : bookToLendings) {
-            Lending[] lendings = ao.find(Lending.class, Query.select().where("LENDING_ID LIKE ?", bookToLending.getID()));
-            ao.delete(lendings[0]);
-            ao.delete(bookToLending);
+        Lending[] lendings = ao.find(Lending.class, Query.select().where("BOOK_ID LIKE ?", id));
+        for (Lending lending : lendings) {
+            ao.delete(lending);
         }
 
         BookToAuthor[] bookToAuthors = ao.find(BookToAuthor.class, Query.select().where("BOOK LIKE ?", id));

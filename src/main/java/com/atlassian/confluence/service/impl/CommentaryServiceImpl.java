@@ -11,6 +11,7 @@ import net.java.ao.Query;
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class CommentaryServiceImpl implements CommentaryService {
     @ComponentImport
@@ -31,6 +32,8 @@ public class CommentaryServiceImpl implements CommentaryService {
         commentaryModel.setBookId(commentaryModel.getBookId());
         commentary.setDescription(commentaryModel.getDescription());
         commentary.setCreatedDate(new Date());
+        commentary.setUserKey(Objects.requireNonNull(userManager.getRemoteUserKey()).getStringValue());
+        commentary.setUserName(Objects.requireNonNull(userManager.getRemoteUser()).getFullName());
         commentary.save();
     }
 

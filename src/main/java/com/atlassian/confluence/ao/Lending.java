@@ -2,8 +2,10 @@ package com.atlassian.confluence.ao;
 
 import net.java.ao.Entity;
 import net.java.ao.ManyToMany;
+import net.java.ao.OneToMany;
 import net.java.ao.schema.Default;
 import net.java.ao.schema.NotNull;
+import net.java.ao.schema.StringLength;
 
 import java.util.Date;
 
@@ -32,8 +34,20 @@ public interface Lending extends Entity {
     boolean getIsLost();
     void setIsLost(boolean isLost);
 
+    @StringLength(StringLength.UNLIMITED)
+    String getUserKey();
+    void setUserKey(String userKey);
+
+    @StringLength(StringLength.UNLIMITED)
+    String getUserName();
+    void setUserName(String userName);
+
+    @StringLength(StringLength.UNLIMITED)
+    String getUserEmail();
+    void setUserEmail(String userEmail);
+
     // linked tables
 
-    @ManyToMany(value = BookToLending.class)
-    Book[] getBooks();
+    Book getBook();
+    void setBook(Book book);
 }

@@ -14,6 +14,14 @@ public interface Commentary extends Entity {
     Date getCreatedDate();
     void setCreatedDate(Date createdDate);
 
+    @StringLength(StringLength.UNLIMITED)
+    String getUserKey();
+    void setUserKey(String userKey);
+
+    @StringLength(StringLength.UNLIMITED)
+    String getUserName();
+    void setUserName(String userName);
+
     // linked tables
 
     Book getBook();

@@ -52,7 +52,7 @@ public interface Book extends Entity {
     @ManyToMany(value = BookToEditionType.class)
     EditionType[] getEditionTypes();
 
-    @ManyToMany(value = BookToLending.class)
+    @OneToMany
     Lending[] getLendings();
 
     @OneToMany

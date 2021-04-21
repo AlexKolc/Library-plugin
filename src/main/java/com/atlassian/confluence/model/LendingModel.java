@@ -1,5 +1,7 @@
 package com.atlassian.confluence.model;
 
+import com.atlassian.confluence.ao.Lending;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
@@ -18,6 +20,14 @@ public class LendingModel {
     private Date returnDate;
     @XmlElement
     private boolean isLost;
+    @XmlElement
+    private String userKey;
+    @XmlElement
+    private String userName;
+    @XmlElement
+    private String userEmail;
+    @XmlElement
+    private String bookId;
 
     // Status
     //   Забронировано
@@ -27,6 +37,18 @@ public class LendingModel {
     //   Потеряно
 
     private LendingModel() {}
+
+    public LendingModel(Lending lending) {
+        id = lending.getID();
+        status = lending.getStatus();
+        dateOfIssue = lending.getDateOfIssue();
+        returnPeriod = lending.getReturnPeriod();
+        returnDate = lending.getReturnedDate();
+        isLost = lending.getIsLost();
+        userKey = lending.getUserKey();
+        userName = lending.getUserName();
+        userEmail = lending.getUserEmail();
+    }
 
     public int getId() {
         return id;
@@ -74,5 +96,29 @@ public class LendingModel {
 
     public void setIsLost(boolean isLost) {
         this.isLost = isLost;
+    }
+
+    public String getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

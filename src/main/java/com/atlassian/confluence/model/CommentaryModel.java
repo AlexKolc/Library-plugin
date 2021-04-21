@@ -16,6 +16,12 @@ public class CommentaryModel {
     private String description;
     @XmlElement
     private Date createdDate;
+    @XmlElement
+    private String userKey;
+    @XmlElement
+    private String userName;
+//    @XmlElement
+//    private String user;
 
     private CommentaryModel() {}
 
@@ -56,5 +62,21 @@ public class CommentaryModel {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
