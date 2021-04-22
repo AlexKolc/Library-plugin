@@ -18,7 +18,6 @@
     <entity>com.atlassian.confluence.ao.Book</entity>
     <entity>com.atlassian.confluence.ao.BookToAuthor</entity>
     <entity>com.atlassian.confluence.ao.BookToEditionType</entity>
-    <entity>com.atlassian.confluence.ao.BookToLending</entity>
     <entity>com.atlassian.confluence.ao.BookToTag</entity>
     <entity>com.atlassian.confluence.ao.Commentary</entity>
     <entity>com.atlassian.confluence.ao.EditionType</entity>
