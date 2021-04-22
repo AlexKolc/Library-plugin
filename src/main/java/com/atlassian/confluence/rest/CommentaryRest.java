@@ -2,10 +2,9 @@ package com.atlassian.confluence.rest;
 
 import com.atlassian.confluence.model.CommentaryModel;
 import com.atlassian.confluence.service.CommentaryService;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.github.kristofa.brave.http.HttpServerRequest;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,7 +14,7 @@ public class CommentaryRest {
     private final CommentaryService commentaryService;
 
     @Inject
-    public CommentaryRest(@ComponentImport CommentaryService commentaryService) {
+    public CommentaryRest(CommentaryService commentaryService) {
         this.commentaryService = commentaryService;
     }
 
@@ -38,7 +37,7 @@ public class CommentaryRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getCommentaries")
-    public CommentaryModel[] getCommentaries(HttpServerRequest request) {
+    public CommentaryModel[] getCommentaries(HttpServletRequest request) {
         return null;
     }
 }

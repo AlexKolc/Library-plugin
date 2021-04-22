@@ -1,12 +1,7 @@
 package com.atlassian.confluence.rest;
 
-import com.atlassian.confluence.ao.EditionType;
-import com.atlassian.confluence.model.BookModel;
 import com.atlassian.confluence.model.EditionTypeModel;
-import com.atlassian.confluence.service.BookService;
-import com.atlassian.confluence.service.CommentaryService;
 import com.atlassian.confluence.service.EditionTypeService;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

@@ -1,9 +1,6 @@
 package com.atlassian.confluence.rest;
 
-import com.atlassian.confluence.ao.Tag;
-import com.atlassian.confluence.model.EditionTypeModel;
 import com.atlassian.confluence.model.TagModel;
-import com.atlassian.confluence.service.EditionTypeService;
 import com.atlassian.confluence.service.TagService;
 
 import javax.inject.Inject;

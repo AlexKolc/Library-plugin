@@ -1,11 +1,8 @@
 package com.atlassian.confluence.rest;
 
-import com.atlassian.confluence.model.BookModel;
 import com.atlassian.confluence.model.LendingModel;
-import com.atlassian.confluence.service.CommentaryService;
 import com.atlassian.confluence.service.LendingService;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.github.kristofa.brave.http.HttpServerRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -17,14 +14,14 @@ public class LendingRest {
     private final LendingService lendingService;
 
     @Inject
-    public LendingRest(@ComponentImport LendingService lendingService) {
+    public LendingRest(LendingService lendingService) {
         this.lendingService = lendingService;
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getLendigsByKey")
-    public LendingModel[] getLendingsByKey(HttpServerRequest request) {
+    public LendingModel[] getLendingsByKey(HttpServletRequest request) {
         // TODO: get user key from http request
         return lendingService.getLendingByKey("");
     }
@@ -32,7 +29,7 @@ public class LendingRest {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/addToBooked")
-    public Response addToBooked(HttpServerRequest request) {
+    public Response addToBooked(HttpServletRequest request) {
         // TODO: get book id from http request
         lendingService.addLendingBooked(1);
         return Response.ok().build();
@@ -41,7 +38,7 @@ public class LendingRest {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/addToWaiting")
-    public Response addToWaiting(HttpServerRequest request) {
+    public Response addToWaiting(HttpServletRequest request) {
         // TODO: get book id from http request
         lendingService.addLendingPendingIssue(1);
         return Response.ok().build();
@@ -50,7 +47,7 @@ public class LendingRest {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/deleteLending")
-    public Response deleteLending(HttpServerRequest request) {
+    public Response deleteLending(HttpServletRequest request) {
         // TODO: get lending id from http request
         lendingService.deleteLending(1);
         return Response.ok().build();

@@ -2,7 +2,6 @@ package com.atlassian.confluence.rest;
 
 import com.atlassian.confluence.model.BookModel;
 import com.atlassian.confluence.service.BookService;
-import com.github.kristofa.brave.http.HttpServerRequest;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
