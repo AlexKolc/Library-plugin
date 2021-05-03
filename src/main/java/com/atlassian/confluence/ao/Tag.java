@@ -7,10 +7,8 @@ import net.java.ao.schema.Unique;
 
 public interface Tag extends Entity {
 
-    @Unique
-    @NotNull
     String getName();
-    String setName(String name);
+    void setName(String fullName);
 
     // linked tables
 

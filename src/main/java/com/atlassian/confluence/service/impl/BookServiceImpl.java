@@ -39,11 +39,11 @@ public class BookServiceImpl implements BookService {
 
         book.save();
 
-        String[] authorsStr = bookModel.getAuthors().replaceAll("\\s+", "").split(",");
+        String[] authorsStr = bookModel.getAuthors().replaceAll(",\\s+", ",").split(",");
         for (String authorStr : authorsStr) {
             final Author[] authors = ao.find(Author.class, Query.select().where("FULL_NAME LIKE ?", authorStr));
             final Author author;
-            if (authors == null) {
+            if (authors.length == 0) {
                 author = ao.create(Author.class);
                 author.setFullName(authorStr);
                 author.save();
@@ -57,6 +57,41 @@ public class BookServiceImpl implements BookService {
             bookToAuthor.save();
         }
 
+//        String[] tagsStr = bookModel.getTags().replaceAll(",\\s+", ",").split(",");
+//        for (String tagStr : tagsStr) {
+//            final Tag[] tags = ao.find(Tag.class, Query.select().where("NAME LIKE ?", tagStr));
+//            final Tag tag;
+//            if (tags.length == 0) {
+//                tag = ao.create(Tag.class);
+//                tag.setName(tagStr);
+//                tag.save();
+//            } else {
+//                tag = tags[0];
+//            }
+//
+//            final BookToTag bookToTag = ao.create(BookToTag.class);
+//            bookToTag.setBook(book);
+//            bookToTag.setTag(tag);
+//            bookToTag.save();
+//        }
+
+        String[] editionTypesStr = bookModel.getEditionTypes().replaceAll(",\\s+", ",").split(",");
+        for (String editionTypeStr : editionTypesStr) {
+            final EditionType[] editionTypes = ao.find(EditionType.class, Query.select().where("TYPE_NAME LIKE ?", editionTypeStr));
+            final EditionType editionType;
+            if (editionTypes.length == 0) {
+                editionType = ao.create(EditionType.class);
+                editionType.setTypeName(editionTypeStr);
+                editionType.save();
+            } else {
+                editionType = editionTypes[0];
+            }
+
+            final BookToEditionType bookToEditionType = ao.create(BookToEditionType.class);
+            bookToEditionType.setBook(book);
+            bookToEditionType.setEditionType(editionType);
+            bookToEditionType.save();
+        }
 
         return book;
     }
@@ -101,16 +136,32 @@ public class BookServiceImpl implements BookService {
         BookModel[] bookModels = new BookModel[books.length];
         for (int i = 0; i < books.length; i++) {
             bookModels[i] = new BookModel(books[i]);
-            BookToAuthor[] bookToAuthors = ao.find(BookToAuthor.class, Query.select().where("BOOK_ID LIKE ?", bookModels[i].getId()));
-            StringBuilder str = new StringBuilder();
-            for (int j = 0; j < bookToAuthors.length; j++) {
-                Author[] author = ao.find(Author.class, Query.select().where("ID LIKE ?", bookToAuthors[j].getAuthor()));
-                if (author != null)
-                    str.append(author[0].getFullName());
-                if (j != bookToAuthors.length - 1)
-                    str.append(", ");
+            StringBuilder authorsStr = new StringBuilder();
+            Author[] authors = books[i].getAuthors();
+            for (int j = 0; j < authors.length; j++) {
+                authorsStr.append(authors[j].getFullName());
+                if (j != authors.length - 1)
+                    authorsStr.append(", ");
             }
-            bookModels[i].setAuthors(str.toString());
+            bookModels[i].setAuthors(authorsStr.toString());
+
+            StringBuilder tagsStr = new StringBuilder();
+            Tag[] tags = books[i].getTags();
+            for (int j = 0; j < tags.length; j++) {
+                tagsStr.append(tags[j].getName());
+                if (j != tags.length - 1)
+                    tagsStr.append(", ");
+            }
+            bookModels[i].setTags(tagsStr.toString());
+
+            StringBuilder editionStr = new StringBuilder();
+            EditionType[] editionTypes = books[i].getEditionTypes();
+            for (int j = 0; j < editionTypes.length; j++) {
+                editionStr.append(editionTypes[j].getTypeName());
+                if (j != tags.length - 1)
+                    editionStr.append(", ");
+            }
+            bookModels[i].setEditionTypes(editionStr.toString());
         }
         return bookModels;
     }

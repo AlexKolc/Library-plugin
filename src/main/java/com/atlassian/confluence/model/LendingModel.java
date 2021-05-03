@@ -13,6 +13,8 @@ public class LendingModel {
     @XmlElement
     private String status;
     @XmlElement
+    private Date dateChangedStatus;
+    @XmlElement
     private Date dateOfIssue;
     @XmlElement
     private int returnPeriod;
@@ -41,6 +43,7 @@ public class LendingModel {
     public LendingModel(Lending lending) {
         id = lending.getID();
         status = lending.getStatus();
+        dateChangedStatus = lending.getDateChangedStatus();
         dateOfIssue = lending.getDateOfIssue();
         returnPeriod = lending.getReturnPeriod();
         returnDate = lending.getReturnedDate();
@@ -64,6 +67,14 @@ public class LendingModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Date getDateChangedStatus() {
+        return dateChangedStatus;
+    }
+
+    public void setDateChangedStatus(Date dateChangedStatus) {
+        this.dateChangedStatus = dateChangedStatus;
     }
 
     public Date getDateOfIssue() {

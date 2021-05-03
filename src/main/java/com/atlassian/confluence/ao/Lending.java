@@ -7,6 +7,7 @@ import net.java.ao.schema.Default;
 import net.java.ao.schema.NotNull;
 import net.java.ao.schema.StringLength;
 
+import javax.validation.constraints.Null;
 import java.util.Date;
 
 public interface Lending extends Entity {
@@ -14,11 +15,12 @@ public interface Lending extends Entity {
     String getStatus();
     void setStatus(String status);
 
-    @NotNull
+    Date getDateChangedStatus();
+    void setDateChangedStatus(Date dateChangedStatus);
+
     Date getDateOfIssue();
     void setDateOfIssue(Date dateOfIssue);
 
-    @NotNull
     @Default("30")
     int getReturnPeriod();
     void setReturnPeriod(int returnPeriod);

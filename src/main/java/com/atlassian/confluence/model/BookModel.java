@@ -27,6 +27,10 @@ public class BookModel {
     private String publisher;
     @XmlElement
     private String authors;
+    @XmlElement
+    private String tags;
+    @XmlElement
+    private String editionTypes;
 //    @XmlElement
 //    private TagModel[] tags;
 //    @XmlElement
@@ -43,6 +47,7 @@ public class BookModel {
         setCountCopies(book.getCountCopies());
         setDescription(book.getDescription());
         setImageUrl(book.getImageUrl());
+        setPublisher(book.getPublisher());
     }
 
     public int getId() {
@@ -123,6 +128,22 @@ public class BookModel {
 
     public void setAuthors(String authors) {
         this.authors = authors;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getEditionTypes() {
+        return editionTypes;
+    }
+
+    public void setEditionTypes(String editionTypes) {
+        this.editionTypes = editionTypes;
     }
 
 //    public TagModel[] getTags() {

@@ -6,7 +6,6 @@ import net.java.ao.schema.Unique;
 
 public interface EditionType extends Entity {
 
-    @Unique
     String getTypeName();
     void setTypeName(String typeName);
 
