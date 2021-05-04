@@ -28,35 +28,51 @@
   <web-item name="library-entity" key="library-entity" section="system.user/user-content">
     <description key="library-entity.desc">Adds the "Library" action into users's menu</description>
     <label key="Библиотека"/>
-    <link linkId="library-entity">/secure/Library.jspa</link>
+    <link linkId="library-entity">/library/main.action</link>
+<!--    <link linkId="library-entity">/secure/Library.jspa</link>-->
   </web-item>
 
-  <servlet name="Library servlet" key="library-servlet" class="com.atlassian.confluence.servlet.LibraryServlet">
-    <description key="library-servlet.desc">A servlet for library page</description>
-    <url-pattern>/library</url-pattern>
-<!--    <component-import key="velocity-renderer" interface="com.atlassian.templaterenderer.TemplateRenderer" />-->
-  </servlet>
+<!--  <servlet name="Library servlet" key="library-servlet" class="com.atlassian.confluence.servlet.LibraryServlet">-->
+<!--    <description key="library-servlet.desc">A servlet for library page</description>-->
+<!--    <url-pattern>/library</url-pattern>-->
+<!--&lt;!&ndash;    <component-import key="velocity-renderer" interface="com.atlassian.templaterenderer.TemplateRenderer" />&ndash;&gt;-->
+<!--  </servlet>-->
 
-  <routing key="library-routing" path="/secure">
-    <route from="Library.jspa" to="/plugins/servlet/library"/>
-  </routing>
+<!--  <routing key="library-routing" path="/secure">-->
+<!--    <route from="Library.jspa" to="/plugins/servlet/library"/>-->
+<!--  </routing>-->
 
   <rest key="libraryRest" path="/library" version="1.0" context="host:port">
     <description>Rest-service: response on JS requests</description>
   </rest>
 
-  <web-resource key="library-servlet-resources" name="Library Web Resource">
-    <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <resource type="download" name="Library.js" location="/js/Library.js"/>
-    <resource type="download" name="Library.css" location="/css/Library.css"/>
-    <context>alt.general</context>
-  </web-resource>
-
-  <web-resource key="no-confluence-user" name="No Confluence User Web Resource">
+<!--  <web-resource key="library-servlet-resources" name="Library Web Resource">-->
 <!--    <dependency>com.atlassian.auiplugin:ajs</dependency>-->
 <!--    <resource type="download" name="Library.js" location="/js/Library.js"/>-->
 <!--    <resource type="download" name="Library.css" location="/css/Library.css"/>-->
 <!--    <context>alt.general</context>-->
+<!--  </web-resource>-->
+
+<!--  <web-resource key="no-confluence-user" name="No Confluence User Web Resource">-->
+<!--    <dependency>com.atlassian.auiplugin:ajs</dependency>-->
+<!--    <resource type="download" name="NoConfluenceUser.js" location="/js/NoConfluenceUser.js"/>-->
+<!--    <resource type="download" name="NoConfluenceUser.css" location="/css/NoConfluenceUser.css"/>-->
+<!--    <context>alt.general</context>-->
+<!--  </web-resource>-->
+
+  <web-resource key="Library-resources" name="Library Web Resource">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="Library.js" location="/js/Library.js"/>
+    <resource type="download" name="Library.css" location="/css/Library.css"/>
+    <context>Library</context>
   </web-resource>
+
+  <xwork key="library-web-works">
+    <package name="library" extends="default" namespace="/library">
+      <action name="main" class="com.atlassian.confluence.action.MainAction">
+        <result name="success" type="velocity">/templates/Main.vm</result>
+      </action>
+    </package>
+  </xwork>
 
 </atlassian-plugin>
