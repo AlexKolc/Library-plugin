@@ -1,0 +1,9 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.action.MainAction" *#
+
+$webResourceManager.requireResource("com.atlassian.confluence:library-web-works")
+
+#if($action.hasAccess())
+    <p>User</p>
+#else
+    <p>No User</p>
+#end
