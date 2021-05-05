@@ -10,6 +10,11 @@ import javax.inject.Named;
 
 @Named
 public class AccessServiceImpl implements AccessService {
+    private final String USER_GROUP = "confluence-users";
+    private final String ADMIN_LIBRARY_GROUP = "library-administrators";
+    private final String ADMIN_GROUP = "confluence-administrators";
+
+
     @ComponentImport
     private final UserManager userManager;
 
@@ -21,5 +26,20 @@ public class AccessServiceImpl implements AccessService {
     @Override
     public boolean hasAccess() {
         return userManager.getRemoteUser() != null;
+    }
+
+    @Override
+    public boolean isUser() {
+        return userManager.isUserInGroup(userManager.getRemoteUserKey(), USER_GROUP);
+    }
+
+    @Override
+    public boolean isLibraryAdmin() {
+        return userManager.isUserInGroup(userManager.getRemoteUserKey(), ADMIN_LIBRARY_GROUP);
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return userManager.isUserInGroup(userManager.getRemoteUserKey(), ADMIN_GROUP);
     }
 }

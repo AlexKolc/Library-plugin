@@ -1,10 +1,11 @@
-#* @vtlvariable name="action" type="com.atlassian.confluence.action.MainAction" *#
+#* @vtlvariable name="action" type="com.atlassian.confluence.action.CatalogAction" *#
 
 $webResourceManager.requireResource("com.atlassian.confluence.Library:Library-resources")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
 #set($baseurl = $settingsManager.getGlobalSettings().getBaseUrl())
 
-#if($action.hasAccess())
+###if($action.hasAccess())
+##    #if($action.isUser())
     <header class="page-header">
         <div class="header-logo">
             <h1><img src = "$baseurl/download/resources/com.atlassian.confluence.Library:Library-resources/images/BIA_LOGO.png" align="middle" alt = "BIA Logo" /> БИБЛИОТЕКА</h1>
@@ -20,12 +21,15 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
                     <div class="text-main-page">
-                        <h2>Добро пожаловать в библиотеку!</h2>
+                        <h2>Вы попали в каталог</h2>
                     </div>
                 </section>
             </div>
         </div>
     </section>
-#else
-    <p>No User</p>
-#end
+##    #else
+##        <p>У вас недостаточно прав для доступа к этой странице</p>
+##    #end
+###else
+##    <p>Не имеете доступ к этой странице</p>
+###end

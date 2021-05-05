@@ -48,8 +48,8 @@
 
 <!--  <web-resource key="library-servlet-resources" name="Library Web Resource">-->
 <!--    <dependency>com.atlassian.auiplugin:ajs</dependency>-->
-<!--    <resource type="download" name="Library.js" location="/js/Library.js"/>-->
-<!--    <resource type="download" name="Library.css" location="/css/Library.css"/>-->
+<!--    <resource type="download" name="Main.js" location="/js/Main.js"/>-->
+<!--    <resource type="download" name="Main.css" location="/css/Main.css"/>-->
 <!--    <context>alt.general</context>-->
 <!--  </web-resource>-->
 
@@ -62,8 +62,10 @@
 
   <web-resource key="Library-resources" name="Library Web Resource">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <resource type="download" name="Library.js" location="/js/Library.js"/>
-    <resource type="download" name="Library.css" location="/css/Library.css"/>
+    <resource type="download" name="Main.js" location="/js/Sidebar.js"/>
+    <resource type="download" name="Main.js" location="/js/Main.js"/>
+    <resource type="download" name="Main.css" location="/css/Main.css"/>
+    <resource type="download" name="images/" location="/images"/>
     <context>Library</context>
   </web-resource>
 
@@ -71,6 +73,15 @@
     <package name="library" extends="default" namespace="/library">
       <action name="main" class="com.atlassian.confluence.action.MainAction">
         <result name="success" type="velocity">/templates/Main.vm</result>
+      </action>
+      <action name="catalog" class="com.atlassian.confluence.action.CatalogAction">
+        <result name="success" type="velocity">/templates/Catalog.vm</result>
+      </action>
+      <action name="mybooks" class="com.atlassian.confluence.action.MyBooksAction">
+        <result name="success" type="velocity">/templates/MyBooks.vm</result>
+      </action>
+      <action name="sidebar" class="com.atlassian.confluence.action.SidebarAction">
+        <result name="success" type="velocity">/templates/Sidebar.vm</result>
       </action>
     </package>
   </xwork>

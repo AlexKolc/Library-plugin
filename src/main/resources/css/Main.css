@@ -1,0 +1,32 @@
+* {
+    /*box-sizing: border-box;*/
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center!important;
+    font-size: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.header-logo {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.text-main-page {
+    font-size: 20px;
+    text-align: center;
+}
+
+hr {
+    border: none; /* Убираем границу */
+    background-color: #0049b0; /* Цвет линии */
+    color: #0049b0; /* Цвет линии для IE6-7 */
+    height: 5px; /* Толщина линии */
+}
+
+h1 img {
+    width: 20%;
+}
