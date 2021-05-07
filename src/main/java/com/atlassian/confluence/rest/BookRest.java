@@ -4,7 +4,9 @@ import com.atlassian.confluence.model.BookModel;
 import com.atlassian.confluence.service.BookService;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -31,4 +33,13 @@ public class BookRest {
     public BookModel[] getBooks() {
         return bookService.getAllBooks();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getBookById")
+    public BookModel getBookById(@Context HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        return bookService.getBookById(id);
+    }
+
 }

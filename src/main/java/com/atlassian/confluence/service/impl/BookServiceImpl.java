@@ -158,11 +158,46 @@ public class BookServiceImpl implements BookService {
             EditionType[] editionTypes = books[i].getEditionTypes();
             for (int j = 0; j < editionTypes.length; j++) {
                 editionStr.append(editionTypes[j].getTypeName());
-                if (j != tags.length - 1)
+                if (j != editionTypes.length - 1)
                     editionStr.append(", ");
             }
             bookModels[i].setEditionTypes(editionStr.toString());
         }
         return bookModels;
+    }
+
+    @Override
+    public BookModel getBookById(int id) {
+        Book book = ao.find(Book.class, Query.select().where("ID LIKE ?", id))[0];
+        BookModel bookModel = new BookModel(book);
+
+        StringBuilder authorsStr = new StringBuilder();
+        Author[] authors = book.getAuthors();
+        for (int j = 0; j < authors.length; j++) {
+            authorsStr.append(authors[j].getFullName());
+            if (j != authors.length - 1)
+                authorsStr.append(", ");
+        }
+        bookModel.setAuthors(authorsStr.toString());
+
+        StringBuilder tagsStr = new StringBuilder();
+        Tag[] tags = book.getTags();
+        for (int j = 0; j < tags.length; j++) {
+            tagsStr.append(tags[j].getName());
+            if (j != tags.length - 1)
+                tagsStr.append(", ");
+        }
+        bookModel.setTags(tagsStr.toString());
+
+        StringBuilder editionStr = new StringBuilder();
+        EditionType[] editionTypes = book.getEditionTypes();
+        for (int j = 0; j < editionTypes.length; j++) {
+            editionStr.append(editionTypes[j].getTypeName());
+            if (j != editionTypes.length - 1)
+                editionStr.append(", ");
+        }
+        bookModel.setEditionTypes(editionStr.toString());
+
+        return bookModel;
     }
 }

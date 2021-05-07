@@ -7,4 +7,5 @@ public interface BookService {
     Book addBook(BookModel bookModel);
     void deleteBook(Integer id);
     BookModel[] getAllBooks();
+    BookModel getBookById(int id);
 }
