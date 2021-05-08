@@ -26,8 +26,13 @@ public interface Book extends Entity {
     String getPublisher();
     void setPublisher(String publisher);
 
+    @StringLength(StringLength.UNLIMITED)
     String getImageUrl();
     void setImageUrl(String imageUrl);
+
+    @StringLength(StringLength.UNLIMITED)
+    String getEbookUrl();
+    void setEbookUrl(String ebookUrl);
 
     @StringLength(StringLength.UNLIMITED)
     String getDescription();

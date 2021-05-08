@@ -1,0 +1,139 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.action.BookInfoAction" *#
+
+$webResourceManager.requireResource("com.atlassian.confluence.Library:Library-resources")
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-sidebar")
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-iconfont")
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-dialog2")
+#set($baseurl = $settingsManager.getGlobalSettings().getBaseUrl())
+
+#if($action.hasAccess())
+    #if($action.isUser())
+
+
+    <script>
+        getBookById($action.getId())
+        AJS.dialog2("#demo-warning-dialog").hide();
+    </script>
+
+    <div id="messaging"></div>
+
+    <section
+            id="demo-warning-dialog"
+            class="aui-dialog2 aui-dialog2-medium aui-dialog2-warning aui-layer"
+            role="dialog"
+            tabindex="-1"
+            aria-labelledby="demo-warning-dialog--heading"
+            aria-hidden="true"
+    >
+        <header class="aui-dialog2-header">
+            <h1 class="aui-dialog2-header-main" id="demo-warning-dialog--heading">Нет в наличии</h1>
+            <a class="aui-dialog2-header-close">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+            </a>
+        </header>
+        <div class="aui-dialog2-content">
+            <p>Свободной книги в данный момент нет. Вы можете забронировать и когда появится свободный экземпляр - вы получите уведомление на почту.</p>
+        </div>
+        <footer class="aui-dialog2-footer">
+            <div class="aui-dialog2-footer-actions">
+                <button id="warning-dialog-confirm" class="aui-button aui-button-primary" onclick="addToBooked($action.getId())">Забронировать</button>
+                <button id="warning-dialog-cancel" class="aui-button aui-button-link" onclick="cancelBanner()">Отмена</button>
+            </div>
+        </footer>
+    </section>
+
+    <header class="page-header">
+        <div class="header-logo">
+            <h1>БИБЛИОТЕКА</h1>
+        </div>
+        <hr>
+    </header>
+
+    <section id="content" role="main">
+        <!-- AUI Sidebar -->
+        #parse("/templates/Sidebar.vm")
+
+        <div class="aui-page-panel">
+            <div class="aui-page-panel-inner">
+                <section class="aui-page-panel-content">
+                    <h2 id="book-name" class="top-book-info-left-h2">Разработка бизнес-приложений на платформе "1С: Предприятие"</h2>                    <hr class="hr-main">
+                    <div id="top-book-info" class="top-book-info">
+                        <img src="" id="top-book-info-img" class="top-book-info-img">
+                        <div id="top-book-info-left">
+                            <div id="desc">
+                                <h3>Информация</h3>
+                                <hr class="hr-main">
+                                <div class="info">
+                                    <div class="info-item">
+                                        <div class="info-label">Авторы:</div>
+                                        <div class="info-value" id="book-authors"></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Издательство:</div>
+                                        <div class="info-value" id="book-publisher"></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Год издания:</div>
+                                        <div class="info-value" id="book-year-publishing"></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Объем страниц:</div>
+                                        <div class="info-value" id="book-page-volume"></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">ISNB:</div>
+                                        <div class="info-value" id="book-isnb"></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Формат:</div>
+                                        <div class="info-value" id="book-edition-type"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="desc">
+                                <h3>Описание</h3>
+                                <hr class="hr-main">
+                                <div id="desc-text" class="info-item"></div>
+                            </div>
+                            <div class="get-buttons">
+                                <hr class="hr-main">
+                                <div class="paper-book" style="display: none;">
+                                    <h3 class="type-book-h3">Физическая книга</h3>
+                                    <button class="aui-button aui-button-primary btn-get" type="button" onclick="addToWaiting($action.getId())">Получить книгу</button>
+                                </div>
+                                <div class="e-book" style="display: none;">
+                                    <h3 class="type-book-h3">Электронная книга</h3>
+                                    <button class="aui-button aui-button-primary btn-get" type="button" onclick="getEbook($action.getId())">Скачать книгу</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="hr-main">
+                    <div class="commentaries">
+                        <h3>Комментарии</h3>
+                        <div class="other-commentaries" id="other-commentaries">
+
+                        </div>
+                        <div class="new-commentary-main">
+                            <h3>Оставить комментарий</h3>
+                            <form name="new-commentary-form">
+                                <div class="div-new-commentary">
+                                    <textarea class="textarea-comment" name="new-commentary-input" id="new-commentary-input" placeholder="Оставьте комментарий..."></textarea>
+                                </div>
+                                <button class="aui-button aui-button-primary btn-send-commentary" type="button" onclick="sendCommentary()">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="hr-main">
+
+                </section>
+            </div>
+        </div>
+    </section>
+    #else
+    <p>У вас недостаточно прав для доступа к этой странице</p>
+    #end
+#else
+<p>Чтобы получить дуступ к странице необходимо авторизоваться</p>
+#end

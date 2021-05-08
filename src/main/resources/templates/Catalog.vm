@@ -1,14 +1,25 @@
 #* @vtlvariable name="action" type="com.atlassian.confluence.action.CatalogAction" *#
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- DevExtreme themes -->
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/20.2.7/css/dx.common.css">
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/20.2.7/css/dx.light.css">
+<!-- DevExtreme library -->
+<script type="text/javascript" src="https://cdn3.devexpress.com/jslib/20.2.7/js/dx.all.js"></script>
+
 $webResourceManager.requireResource("com.atlassian.confluence.Library:Library-resources")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-sidebar")
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-iconfont")
 #set($baseurl = $settingsManager.getGlobalSettings().getBaseUrl())
+#set($name = $action.getName())
 
-###if($action.hasAccess())
-##    #if($action.isUser())
+#if($action.hasAccess())
+    #if($action.isUser())
     <header class="page-header">
         <div class="header-logo">
-            <h1><img src = "$baseurl/download/resources/com.atlassian.confluence.Library:Library-resources/images/BIA_LOGO.png" align="middle" alt = "BIA Logo" /> БИБЛИОТЕКА</h1>
+            <h1>БИБЛИОТЕКА</h1>
         </div>
         <hr>
     </header>
@@ -20,16 +31,35 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
         <div class="aui-page-panel">
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
-                    <div class="text-main-page">
-                        <h2>Вы попали в каталог</h2>
+                    <h2>КАТАЛОГ</h2>
+                    <div>Как пользоваться каталогом:</div>
+                    <ul>
+                        <li>Произведите поиск искомой книги</li>
+                        <li>Чтобы прочитать подробную информацию и взять/забронировать книгу нажмите в нужной строке "Подробнее"</li>
+                    </ul>
+                    <div class="dx-viewport demo-container">
+                        <div id="gridContainer"></div>
+                        <div class="options">
+                            <div class="caption">Options</div>
+                            <div class="option">
+                                <span>Apply Filter</span>
+                                <div id="useFilterApplyButton"></div>
+                            </div>
+                            <div class="option">
+                                <div id="filterRow"></div>
+                            </div>
+                            <div class="option">
+                                <div id="headerFilter"></div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
         </div>
     </section>
-##    #else
-##        <p>У вас недостаточно прав для доступа к этой странице</p>
-##    #end
-###else
-##    <p>Не имеете доступ к этой странице</p>
-###end
+    #else
+        <p>У вас недостаточно прав для доступа к этой странице</p>
+    #end
+#else
+    <p>Чтобы получить дуступ к странице необходимо авторизоваться</p>
+#end

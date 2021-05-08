@@ -8,6 +8,12 @@ h1 {
     font-size: 35px;
     margin-top: auto;
     margin-bottom: auto;
+    font-weight: bold;
+}
+
+h2 {
+    text-align: center!important;
+    font-weight: bold;
 }
 
 .header-logo {

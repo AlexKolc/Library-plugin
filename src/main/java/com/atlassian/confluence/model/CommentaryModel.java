@@ -2,11 +2,14 @@ package com.atlassian.confluence.model;
 
 import com.atlassian.confluence.ao.Commentary;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CommentaryModel {
     @XmlElement
     private int id;
@@ -20,16 +23,16 @@ public class CommentaryModel {
     private String userKey;
     @XmlElement
     private String userName;
-//    @XmlElement
-//    private String user;
 
     private CommentaryModel() {}
 
     public CommentaryModel(Commentary commentary) {
         id = commentary.getID();
-        bookId = commentary.getID();
+        bookId = commentary.getBook().getID();
         description = commentary.getDescription();
         createdDate = commentary.getCreatedDate();
+        userKey = commentary.getUserKey();
+        userName = commentary.getUserName();
     }
 
     public int getId() {

@@ -1,4 +1,4 @@
-#* @vtlvariable name="action" type="com.atlassian.confluence.action.MainAction" *#
+#* @vtlvariable name="action" type="com.atlassian.confluence.action.UserBooksAction" *#
 
 $webResourceManager.requireResource("com.atlassian.confluence.Library:Library-resources")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
@@ -7,8 +7,8 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
 #set($baseurl = $settingsManager.getGlobalSettings().getBaseUrl())
 #set($name = $action.getName())
 
-
 #if($action.hasAccess())
+    #if($action.isUser())
     <header class="page-header">
         <div class="header-logo">
             <h1>БИБЛИОТЕКА</h1>
@@ -19,17 +19,19 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
     <section id="content" role="main">
         <!-- AUI Sidebar -->
         #parse("/templates/Sidebar.vm")
+        $action.checkWaitingBooks() ## проверка, что книги в ожидании не более 5ти дней
 
         <div class="aui-page-panel">
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
-                    <div class="text-main-page">
-                        <h2>Добро пожаловать в библиотеку!</h2>
-                    </div>
+
                 </section>
             </div>
         </div>
     </section>
+    #else
+        <p>У вас недостаточно прав для доступа к этой странице</p>
+    #end
 #else
-    <p>Чтобы получить доступ к странице необходимо авторизоваться</p>
+    <p>Чтобы получить дуступ к странице необходимо авторизоваться</p>
 #end

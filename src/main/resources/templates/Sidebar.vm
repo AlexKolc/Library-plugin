@@ -1,10 +1,6 @@
-#* @vtlvariable name="action" type="com.atlassian.confluence.action.SidebarAction" *#
-
-$webResourceManager.requireResource("com.atlassian.confluence.Library:Library-resources")
-$webResourceManager.requireResource("com.atlassian.auiplugin:aui-sidebar")
-$webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-iconfont")
-
-#set($baseurl = $settingsManager.getGlobalSettings().getBaseUrl())
+##<div>User: $action.isUser()</div>
+##<div>LibraryAdmin: $action.isLibraryAdmin()</div>
+##<div>Admin: $action.isAdmin()</div>
 
 <div class="aui-sidebar">
     <div class="aui-sidebar-wrapper">
@@ -34,7 +30,7 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="aui-nav-item" href="$baseurl/library/mybooks.action" title="Можно посмотреть информациюо всех своих книгах">
+                                    <a class="aui-nav-item" href="$baseurl/library/user-books.action" title="Можно посмотреть информациюо всех своих книгах">
                                         <span class="aui-icon aui-icon-small aui-iconfont-info-circle"></span>
                                         <span class="aui-nav-item-label">Мои книги</span>
                                     </a>
@@ -49,7 +45,7 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
 
                             <ul class="aui-nav">
                                 <li class="aui-nav-selected">
-                                    <a class="aui-nav-item" href="#" title="Пополнить книжный каталог">
+                                    <a class="aui-nav-item" href="$baseurl/library/add-book.action" title="Пополнить книжный каталог">
                                         <span class="aui-icon aui-icon-small aui-iconfont-book"></span>
                                         <span class="aui-nav-item-label">Добавить книгу</span>
                                     </a>
@@ -63,6 +59,7 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
                             </ul>
                         </div>
                     #end
+
                     #if($action.isAdmin())
                         <div class="aui-sidebar-group aui-sidebar-group-tier-one">
                             <div class="aui-nav-heading" title="Admin"><strong>Администрирование</strong></div>

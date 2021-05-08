@@ -7,6 +7,7 @@ import com.atlassian.sal.api.user.UserManager;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Objects;
 
 @Named
 public class AccessServiceImpl implements AccessService {

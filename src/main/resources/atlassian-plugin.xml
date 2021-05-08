@@ -46,29 +46,19 @@
     <description>Rest-service: response on JS requests</description>
   </rest>
 
-<!--  <web-resource key="library-servlet-resources" name="Library Web Resource">-->
-<!--    <dependency>com.atlassian.auiplugin:ajs</dependency>-->
-<!--    <resource type="download" name="Main.js" location="/js/Main.js"/>-->
-<!--    <resource type="download" name="Main.css" location="/css/Main.css"/>-->
-<!--    <context>alt.general</context>-->
-<!--  </web-resource>-->
-
-<!--  <web-resource key="no-confluence-user" name="No Confluence User Web Resource">-->
-<!--    <dependency>com.atlassian.auiplugin:ajs</dependency>-->
-<!--    <resource type="download" name="NoConfluenceUser.js" location="/js/NoConfluenceUser.js"/>-->
-<!--    <resource type="download" name="NoConfluenceUser.css" location="/css/NoConfluenceUser.css"/>-->
-<!--    <context>alt.general</context>-->
-<!--  </web-resource>-->
-
   <web-resource key="Library-resources" name="Library Web Resource">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <resource type="download" name="Main.js" location="/js/Sidebar.js"/>
+    <resource type="download" name="Sidebar.js" location="/js/Sidebar.js"/>
     <resource type="download" name="Main.js" location="/js/Main.js"/>
     <resource type="download" name="Main.css" location="/css/Main.css"/>
+    <resource type="download" name="Catalog.js" location="/js/Catalog.js"/>
+    <resource type="download" name="Catalog.css" location="/css/Catalog.css"/>
+    <resource type="download" name="BookInfo.js" location="/js/BookInfo.js"/>
+    <resource type="download" name="BookInfo.css" location="/css/BookInfo.css"/>
+    <resource type="download" name="AddBook.js" location="/js/AddBook.js"/>
     <resource type="download" name="images/" location="/images"/>
     <context>Library</context>
   </web-resource>
-
   <xwork key="library-web-works">
     <package name="library" extends="default" namespace="/library">
       <action name="main" class="com.atlassian.confluence.action.MainAction">
@@ -77,11 +67,14 @@
       <action name="catalog" class="com.atlassian.confluence.action.CatalogAction">
         <result name="success" type="velocity">/templates/Catalog.vm</result>
       </action>
-      <action name="mybooks" class="com.atlassian.confluence.action.MyBooksAction">
-        <result name="success" type="velocity">/templates/MyBooks.vm</result>
+      <action name="user-books" class="com.atlassian.confluence.action.UserBooksAction">
+        <result name="success" type="velocity">/templates/UserBooks.vm</result>
       </action>
-      <action name="sidebar" class="com.atlassian.confluence.action.SidebarAction">
-        <result name="success" type="velocity">/templates/Sidebar.vm</result>
+      <action name="add-book" class="com.atlassian.confluence.action.AddBookAction">
+        <result name="success" type="velocity">/templates/AddBook.vm</result>
+      </action>
+      <action name="book-info" class="com.atlassian.confluence.action.BookInfoAction">
+        <result name="success" type="velocity">/templates/BookInfo.vm</result>
       </action>
     </package>
   </xwork>

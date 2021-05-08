@@ -33,7 +33,7 @@ public class LendingRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getLendingsByKey")
-    public LendingModel[] getLendingsByKey(/*HttpServletRequest request*/) {
+    public LendingModel[] getLendingsByKey() {
         return lendingService.getLendingByKey();
     }
 
@@ -54,22 +54,26 @@ public class LendingRest {
         return Response.ok().build();
     }
 
-    @POST
+    @GET
 //    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/addToBooked")
     public Response addToBooked(@Context HttpServletRequest request) {
         int bookId = Integer.parseInt(request.getParameter("book_id"));
-        lendingService.addLendingBooked(bookId);
-        return Response.ok().build();
+        int status = lendingService.addLendingBooked(bookId);
+        if (status == 200)
+            return Response.ok().build();
+        return Response.status(status).build();
     }
 
-    @POST
+    @GET
     //@Consumes(MediaType.APPLICATION_JSON)
     @Path("/addToWaiting")
     public Response addToWaiting(@Context HttpServletRequest request) {
         int bookId = Integer.parseInt(request.getParameter("book_id"));
-        lendingService.addLendingPendingIssue(bookId);
-        return Response.ok().build();
+        int status = lendingService.addLendingPendingIssue(bookId);
+        if (status == 200)
+            return Response.ok().build();
+        return Response.status(status).build();
     }
 
     @POST

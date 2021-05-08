@@ -2,12 +2,16 @@ package com.atlassian.confluence.action;
 
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.service.AccessService;
+import com.atlassian.confluence.service.LendingService;
 
-public class CatalogAction extends ConfluenceActionSupport {
+public class UserBooksAction extends ConfluenceActionSupport {
     public final AccessService accessService;
+    public final LendingService lendingService;
 
-    public CatalogAction(AccessService accessService) {
+
+    public UserBooksAction(AccessService accessService, LendingService lendingService) {
         this.accessService = accessService;
+        this.lendingService = lendingService;
     }
 
     public boolean hasAccess() {
@@ -24,5 +28,9 @@ public class CatalogAction extends ConfluenceActionSupport {
 
     public boolean isAdmin() {
         return accessService.isAdmin();
+    }
+
+    public void checkWaitingBooks() {
+        lendingService.checkWaitingBooks();
     }
 }

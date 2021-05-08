@@ -7,6 +7,7 @@ function addBook() {
         countCopies: 0,
         description: "",
         imageUrl: "",
+        ebookUrl: "",
         publisher: "",
         authors: "",
         tags: "",
@@ -53,6 +54,7 @@ function addBook() {
     book.editionTypes = $("#comment-type-edition").val(); // select
     book.description = $("#comment-input").val(); // textarea
     book.imageUrl = $("#comment-link").val();
+    book.ebookUrl = $("#comment-link-ebook").val();
     // checkImgSrc(book.imageUrl)
     book.countCopies = $("#comment-count-copies").val();
     if (isNumeric(book.countCopies) && parseInt(book.countCopies) > 0) {
@@ -76,7 +78,7 @@ function sendNewBookData(book) {
         url: "/confluence/rest/library/1.0/book/addBook",
         contentType: "application/json",
         data: JSON.stringify(book),
-        success: function(data){
+        success: function (data) {
             //successFunction(data);
             AJS.messages.success("#messaging", {
                 title: "Успешно",
@@ -84,8 +86,7 @@ function sendNewBookData(book) {
                 fadeout: true
             });
         },
-        error: function(jqxhr){
-            //errorFunction(jqxhr.responseText);
+        error: function () {
             AJS.messages.error("#messaging", {
                 title: "ОШИБКА",
                 body: "Книга не была добавлена, попробуйте еще раз!",
@@ -107,8 +108,12 @@ function invalidData(text) {
 
 const checkImgSrc = src => {
     const img = new Image();
-    img.onload = function () { console.log(`valid src: ${src}`); }
-    img.onerror = function () { console.log(`unvalid src: ${src}`); }
+    img.onload = function () {
+        console.log(`valid src: ${src}`);
+    }
+    img.onerror = function () {
+        console.log(`unvalid src: ${src}`);
+    }
     img.src = src;
     console.log(img.src)
 }

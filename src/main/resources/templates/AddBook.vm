@@ -100,6 +100,11 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
                             <input class="text long-field" type="text" id="comment-link" name="comment-link" placeholder="https://www.bookvoed.ru/files/1836/64/31/11/3.jpeg">
                         </div>
                         <div class="field-group">
+                            <label for="comment-link-ebook">Ссылка на электронный ресурс</label>
+                            <input class="text long-field" type="text" id="comment-link-ebook" name="comment-link-ebook" placeholder="https://www.bookvoed.ru/files/1836/64/31/11/3.jpeg">
+                            <div class="description">Добавить ссылку на электронную копию книги</div>
+                        </div>
+                        <div class="field-group">
                             <label for="comment-count-copies">Количество копий
                                 <span class="aui-icon icon-required">(required)</span>
                             </label>
