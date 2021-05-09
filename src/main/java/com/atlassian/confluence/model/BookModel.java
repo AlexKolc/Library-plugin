@@ -155,20 +155,4 @@ public class BookModel {
     public void setEditionTypes(String editionTypes) {
         this.editionTypes = editionTypes;
     }
-
-//    public TagModel[] getTags() {
-//        return tags;
-//    }
-//
-//    public void setTags(TagModel[] tags) {
-//        this.tags = tags;
-//    }
-//
-//    public EditionTypeModel[] getEditionTypes() {
-//        return editionTypes;
-//    }
-//
-//    public void setEditionTypes(EditionTypeModel[] editionTypes) {
-//        this.editionTypes = editionTypes;
-//    }
 }

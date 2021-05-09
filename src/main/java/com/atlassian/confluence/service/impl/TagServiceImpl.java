@@ -8,6 +8,7 @@ import com.atlassian.confluence.model.TagModel;
 import com.atlassian.confluence.service.TagService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.user.UserManager;
+import net.java.ao.Query;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,5 +35,16 @@ public class TagServiceImpl implements TagService {
             tagModels[i] = new TagModel(tags[i]);
         }
         return tagModels;
+    }
+
+    @Override
+    public int addTag(TagModel tagModel) {
+        Tag[] tags = ao.find(Tag.class, Query.select().where("NAME LIKE ?", tagModel.getName()));
+        if (tags.length != 0)
+            return 208;
+        Tag tag = ao.create(Tag.class);
+        tag.setName(tagModel.getName());
+        tag.save();
+        return 200;
     }
 }

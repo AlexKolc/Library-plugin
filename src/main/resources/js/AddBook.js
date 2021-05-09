@@ -1,3 +1,20 @@
+function initAddBook() {
+    AJS.$.ajax({
+        type: "GET",
+        url: "/confluence/rest/library/1.0/tag/getTags",
+        dataType: "json",
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(errorThrown)
+        },
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                $('#select2-tag').append('<option>' + data[i].name + '</option>')
+            }
+            AJS.$('#select2-tag').auiSelect2();
+        }
+    })
+}
+
 function addBook() {
     var book = {
         name: "",
@@ -52,6 +69,7 @@ function addBook() {
     }
     // book.tags = $("#").val();
     book.editionTypes = $("#comment-type-edition").val(); // select
+    book.tags += $("#select2-tag").val();
     book.description = $("#comment-input").val(); // textarea
     book.imageUrl = $("#comment-link").val();
     book.ebookUrl = $("#comment-link-ebook").val();
@@ -64,8 +82,6 @@ function addBook() {
         text += "<li><strong>Некорректное количество экземпляров:</strong> должно быть целое число большее 0</li>"
     }
 
-    console.log(text);
-    console.log(text.length);
     if (text.length === 0)
         sendNewBookData(book)
     else
@@ -123,5 +139,5 @@ function isNumeric(value) {
 }
 
 function isISNB(value) {
-    return /[0-9]{3}[-]?[0-9][-]?[0-9]{2}[-]?[0-9]{6}[-]?[0-9]/.test(value);
+    return /[0-9]{13}/.test(value.replace(/[\s-]/g, ''));
 }

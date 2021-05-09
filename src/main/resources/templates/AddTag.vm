@@ -9,6 +9,9 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
 
 #if($action.hasAccess())
     #if($action.isUser())
+
+    <div id="messaging"></div>
+
     <header class="page-header">
         <div class="header-logo">
             <h1>БИБЛИОТЕКА</h1>
@@ -24,30 +27,25 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
         <div class="aui-page-panel">
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
-                    <h2>МОИ ЗАКАЗЫ</h2>
-                    <div class="dx-viewport demo-container">
-                        <div id="gridContainer-users-books"></div>
-                        <div class="options">
-                            <div class="caption">Options</div>
-                            <div class="option">
-                                <span>Apply Filter</span>
-                                <div id="useFilterApplyButton"></div>
-                            </div>
-                            <div class="option">
-                                <div id="filterRow"></div>
-                            </div>
-                            <div class="option">
-                                <div id="headerFilter"></div>
-                            </div>
+                    <h2>ДОБАВИТЬ НОВЫЙ ТЕГ</h2>
+                    <form class="aui" name="add-tag-form">
+                        <div class="field-group">
+                            <label for="comment-tag-name">Назавание тега
+                                <span class="aui-icon icon-required">(required)</span>
+                            </label>
+                            <input class="text long-field" type="text" id="comment-tag-name" name="comment-tag-name" placeholder="Java">
                         </div>
-                    </div>
+                        <div class="field-group">
+                            <button class="aui-button aui-button-primary" type="button" onclick="addTag()">Добавить тег</button>
+                        </div>
+                    </form>
                 </section>
             </div>
         </div>
     </section>
     #else
-        <p>У вас недостаточно прав для доступа к этой странице</p>
+    <p>У вас недостаточно прав для доступа к этой странице</p>
     #end
 #else
-    <p>Чтобы получить дуступ к странице необходимо авторизоваться</p>
+<p>Чтобы получить дуступ к странице необходимо авторизоваться</p>
 #end

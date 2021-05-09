@@ -57,23 +57,15 @@ public class BookServiceImpl implements BookService {
             bookToAuthor.save();
         }
 
-//        String[] tagsStr = bookModel.getTags().replaceAll(",\\s+", ",").split(",");
-//        for (String tagStr : tagsStr) {
-//            final Tag[] tags = ao.find(Tag.class, Query.select().where("NAME LIKE ?", tagStr));
-//            final Tag tag;
-//            if (tags.length == 0) {
-//                tag = ao.create(Tag.class);
-//                tag.setName(tagStr);
-//                tag.save();
-//            } else {
-//                tag = tags[0];
-//            }
-//
-//            final BookToTag bookToTag = ao.create(BookToTag.class);
-//            bookToTag.setBook(book);
-//            bookToTag.setTag(tag);
-//            bookToTag.save();
-//        }
+        String[] tagsStr = bookModel.getTags().split(",");
+        for (String tagStr : tagsStr) {
+            final Tag tag = ao.find(Tag.class, Query.select().where("NAME LIKE ?", tagStr))[0];
+
+            final BookToTag bookToTag = ao.create(BookToTag.class);
+            bookToTag.setBook(book);
+            bookToTag.setTag(tag);
+            bookToTag.save();
+        }
 
         String[] editionTypesStr = bookModel.getEditionTypes().replaceAll(",\\s+", ",").split(",");
         for (String editionTypeStr : editionTypesStr) {

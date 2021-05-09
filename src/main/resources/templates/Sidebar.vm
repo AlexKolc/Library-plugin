@@ -44,16 +44,22 @@
                             <div class="aui-nav-heading" title="Librarian"><strong>Администрирование библиотеки</strong></div>
 
                             <ul class="aui-nav">
-                                <li class="aui-nav-selected">
+                                <li>
+                                    <a class="aui-nav-item" href="#" title="Управление выдачами">
+                                        <span class="aui-icon aui-icon-small aui-iconfont-send"></span>
+                                        <span class="aui-nav-item-label">Управление выдачами</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="aui-nav-item" href="$baseurl/library/add-book.action" title="Пополнить книжный каталог">
                                         <span class="aui-icon aui-icon-small aui-iconfont-book"></span>
                                         <span class="aui-nav-item-label">Добавить книгу</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="aui-nav-item" href="#" title="Управление выдачами">
-                                        <span class="aui-icon aui-icon-small aui-iconfont-send"></span>
-                                        <span class="aui-nav-item-label">Управление выдачами</span>
+                                    <a class="aui-nav-item" href="$baseurl/library/add-tag.action" title="Пополнить список тегов">
+                                        <span class="aui-icon aui-icon-small aui-iconfont-tag"></span>
+                                        <span class="aui-nav-item-label">Добавить тег</span>
                                     </a>
                                 </li>
                             </ul>

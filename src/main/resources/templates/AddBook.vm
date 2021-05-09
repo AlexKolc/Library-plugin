@@ -17,11 +17,16 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-sidebar")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-form-validation")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-iconfont")
+$webResourceManager.requireResource("com.atlassian.auiplugin:aui-select2")
 #set($baseurl = $settingsManager.getGlobalSettings().getBaseUrl())
 
 
 #if($action.hasAccess())
     #if($action.isUser())
+
+    <script>
+        initAddBook()
+    </script>
 
     <div id="messaging"></div>
 
@@ -91,6 +96,14 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
                                 <aui-option>Физический, Электронный</aui-option>
                             </aui-select>
                         </div>
+
+                        <div class="field-group">
+                            <label for="comment-type-edition">Теги
+                                <span class="aui-icon icon-required">(required)</span>
+                            </label>
+                            <select id="select2-tag" class="select2-tag" multiple></select>
+                        </div>
+
                         <div class="field-group">
                             <label for="comment-input">Описание</label>
                             <textarea class="textarea" name="comment-input" id="comment-input" placeholder="Описание книги..."></textarea>
