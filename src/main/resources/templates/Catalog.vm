@@ -17,6 +17,11 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
 
 #if($action.hasAccess())
     #if($action.isUser())
+
+    <script>
+        getAllBooks()
+    </script>
+
     <header class="page-header">
         <div class="header-logo">
             <h1>БИБЛИОТЕКА</h1>
@@ -38,7 +43,7 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
                         <li>Чтобы прочитать подробную информацию и взять/забронировать книгу нажмите в нужной строке "Подробнее"</li>
                     </ul>
                     <div class="dx-viewport demo-container">
-                        <div id="gridContainer"></div>
+                        <div id="gridContainer-catalog"></div>
                         <div class="options">
                             <div class="caption">Options</div>
                             <div class="option">

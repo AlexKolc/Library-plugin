@@ -53,6 +53,7 @@
     <resource type="download" name="Main.css" location="/css/Main.css"/>
     <resource type="download" name="Catalog.js" location="/js/Catalog.js"/>
     <resource type="download" name="Catalog.css" location="/css/Catalog.css"/>
+    <resource type="download" name="UserBooks.js" location="/js/UserBooks.js"/>
     <resource type="download" name="BookInfo.js" location="/js/BookInfo.js"/>
     <resource type="download" name="BookInfo.css" location="/css/BookInfo.css"/>
     <resource type="download" name="AddBook.js" location="/js/AddBook.js"/>

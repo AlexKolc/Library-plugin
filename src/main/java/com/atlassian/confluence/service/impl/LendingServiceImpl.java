@@ -106,31 +106,33 @@ public class LendingServiceImpl implements LendingService {
     }
 
     @Override
-    public void changeStatus(int lendingId, String status) {
+    public String changeStatus(int lendingId, String status) {
         Lending lending = ao.find(Lending.class, Query.select().where("ID LIKE ?", lendingId))[0];
 
         lending.setDateChangedStatus(new Date());
-        switch (status) {
-            case "ON_HANDS":
-                lending.setStatus(ON_HANDS);
-                lending.setDateOfIssue(new Date());
-                break;
-            case "RETURNED":
-                lending.setStatus(RETURNED);
-                lending.setReturnedDate(new Date());
-                Book book = lending.getBook();
-                if (!haveBooked(book.getID())) {
-                    book.setCountCopies(book.getCountCopies() + 1);
-                    book.save();
-                }
-                break;
-            case "LOST":
-                lending.setStatus(LOST);
-                lending.setReturnedDate(new Date());
-                lending.setIsLost(true);
-                break;
+        if (status.equals("ON_HANDS")) {
+            lending.setStatus(ON_HANDS);
+            lending.setDateOfIssue(new Date());
         }
+
+        if (status.equals(RETURNED)) {
+            lending.setStatus(RETURNED);
+            lending.setReturnedDate(new Date());
+            Book book = lending.getBook();
+            if (!haveBooked(book.getID())) {
+                book.setCountCopies(book.getCountCopies() + 1);
+                book.save();
+            }
+        }
+
+        if (status.equals(LOST)) {
+            lending.setStatus(LOST);
+            lending.setReturnedDate(new Date());
+            lending.setIsLost(true);
+        }
+
         lending.save();
+        return status;
     }
 
     private boolean haveBooked(int bookId) {
@@ -161,8 +163,13 @@ public class LendingServiceImpl implements LendingService {
 
     @Override
     public void deleteLending(int id) {
-        Lending[] lendings = ao.find(Lending.class, Query.select().where("ID LIKE ?", id));
-        ao.delete(lendings[0]);
+        Lending lending = ao.find(Lending.class, Query.select().where("ID LIKE ?", id))[0];
+        if (lending.getStatus().equals("Ожидается выдача")) {
+            Book book = lending.getBook();
+            book.setCountCopies(book.getCountCopies() + 1);
+            book.save();
+        }
+        ao.delete(lending);
     }
 
     @Override

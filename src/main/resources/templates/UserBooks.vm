@@ -1,5 +1,13 @@
 #* @vtlvariable name="action" type="com.atlassian.confluence.action.UserBooksAction" *#
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- DevExtreme themes -->
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/20.2.7/css/dx.common.css">
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/20.2.7/css/dx.light.css">
+<!-- DevExtreme library -->
+<script type="text/javascript" src="https://cdn3.devexpress.com/jslib/20.2.7/js/dx.all.js"></script>
+
 $webResourceManager.requireResource("com.atlassian.confluence.Library:Library-resources")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-page-header")
 $webResourceManager.requireResource("com.atlassian.auiplugin:aui-sidebar")
@@ -9,6 +17,14 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
 
 #if($action.hasAccess())
     #if($action.isUser())
+
+    $action.checkWaitingBooks();
+    <script>
+        getAllUsersBooks()
+    </script>
+
+    <div id="messaging"></div>
+
     <header class="page-header">
         <div class="header-logo">
             <h1>БИБЛИОТЕКА</h1>
@@ -19,14 +35,13 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
     <section id="content" role="main">
         <!-- AUI Sidebar -->
         #parse("/templates/Sidebar.vm")
-        $action.checkWaitingBooks() ## проверка, что книги в ожидании не более 5ти дней
 
         <div class="aui-page-panel">
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
-                    <h2>МОИ ЗАКАЗЫ</h2>
+                    <h2>МОИ КНИГИ</h2>
                     <div class="dx-viewport demo-container">
-                        <div id="gridContainer-users-books"></div>
+                        <div id="gridContainer-user-books"></div>
                         <div class="options">
                             <div class="caption">Options</div>
                             <div class="option">
@@ -46,8 +61,8 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
         </div>
     </section>
     #else
-        <p>У вас недостаточно прав для доступа к этой странице</p>
+    <p>У вас недостаточно прав для доступа к этой странице</p>
     #end
 #else
-    <p>Чтобы получить дуступ к странице необходимо авторизоваться</p>
+<p>Чтобы получить дуступ к странице необходимо авторизоваться</p>
 #end

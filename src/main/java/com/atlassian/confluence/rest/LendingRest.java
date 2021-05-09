@@ -47,11 +47,11 @@ public class LendingRest {
     @POST
 //    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/changeStatus")
-    public Response changeStatus(@Context HttpServletRequest request) {
+    public String changeStatus(@Context HttpServletRequest request) {
         String status = request.getParameter("status");
         int lendingId = Integer.parseInt(request.getParameter("lending_id"));
-        lendingService.changeStatus(lendingId, status);
-        return Response.ok().build();
+        return lendingService.changeStatus(lendingId, status);
+        //return Response.ok().build();
     }
 
     @GET
@@ -79,9 +79,8 @@ public class LendingRest {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/deleteLending")
-    public Response deleteLending(HttpServletRequest request) {
-        // TODO: get lending id from http request
-        lendingService.deleteLending(1);
+    public Response deleteLending(LendingModel lendingModel) {
+        lendingService.deleteLending(lendingModel.getId());
         return Response.ok().build();
     }
 }

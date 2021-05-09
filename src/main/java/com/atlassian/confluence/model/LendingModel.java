@@ -29,7 +29,9 @@ public class LendingModel {
     @XmlElement
     private String userEmail;
     @XmlElement
-    private String bookId;
+    private int bookId;
+    @XmlElement
+    private String bookName;
 
     // Status
     //   Забронировано
@@ -41,16 +43,18 @@ public class LendingModel {
     private LendingModel() {}
 
     public LendingModel(Lending lending) {
-        id = lending.getID();
-        status = lending.getStatus();
-        dateChangedStatus = lending.getDateChangedStatus();
-        dateOfIssue = lending.getDateOfIssue();
-        returnPeriod = lending.getReturnPeriod();
-        returnDate = lending.getReturnedDate();
-        isLost = lending.getIsLost();
-        userKey = lending.getUserKey();
-        userName = lending.getUserName();
-        userEmail = lending.getUserEmail();
+        setId(lending.getID());
+        setStatus(lending.getStatus());
+        setDateChangedStatus(lending.getDateChangedStatus());
+        setDateOfIssue(lending.getDateOfIssue());
+        setReturnPeriod(lending.getReturnPeriod());
+        setReturnDate(lending.getReturnedDate());
+//        setlending.getIsLost());
+        setUserKey(lending.getUserKey());
+        setUserName(lending.getUserName());
+        setUserEmail(lending.getUserEmail());
+        setBookId(lending.getBook().getID());
+        setBookName(lending.getBook().getName());
     }
 
     public int getId() {
@@ -131,5 +135,21 @@ public class LendingModel {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 }
