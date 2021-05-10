@@ -28,6 +28,7 @@ function fillPage(book) {
     $('#book-isnb').html(book.isnb);
     $('#book-edition-type').html(book.editionTypes);
     $('#desc-text').html(book.description);
+    $('#book-tags').html(book.tags)
 
     if (book.editionTypes.indexOf("Физический") !== -1) {
         // $('.paper-book').append("<h3 class=\"type-book-h3\">Физическая книга</h3> <button class=\"aui-button aui-button-primary btn-get\" type=\"button\" onclick=\"addToWaiting($action.getId())\">Получить книгу</button>");

@@ -44,14 +44,13 @@ public class LendingRest {
         return lendingService.getLendings();
     }
 
-    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/changeStatus")
-    public String changeStatus(@Context HttpServletRequest request) {
+    public LendingModel changeStatus(@Context HttpServletRequest request) {
         String status = request.getParameter("status");
         int lendingId = Integer.parseInt(request.getParameter("lending_id"));
         return lendingService.changeStatus(lendingId, status);
-        //return Response.ok().build();
     }
 
     @GET

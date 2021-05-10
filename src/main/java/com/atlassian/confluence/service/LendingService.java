@@ -7,7 +7,7 @@ public interface LendingService {
     LendingModel[] getLendingByKey();
     int addLendingBooked(int bookId);
     int addLendingPendingIssue(int bookId);
-    String changeStatus(int lendingId, String status);
+    LendingModel changeStatus(int lendingId, String status);
     void deleteLending(int id);
     void checkWaitingBooks();
 }

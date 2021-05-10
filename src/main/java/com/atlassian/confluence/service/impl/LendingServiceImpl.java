@@ -24,8 +24,8 @@ public class LendingServiceImpl implements LendingService {
     private final String BOOKED = "Забронировано";
     private final String WAITING = "Ожидается выдача";
     private final String ON_HANDS = "На руках";
-    private final String RETURNED = "Возвращено";
-    private final String LOST = "Потеряно";
+    private final String RETURNED = "Возвращена";
+    private final String LOST = "Потеряна";
 
     @ComponentImport
     private final ActiveObjects ao;
@@ -106,7 +106,7 @@ public class LendingServiceImpl implements LendingService {
     }
 
     @Override
-    public String changeStatus(int lendingId, String status) {
+    public LendingModel changeStatus(int lendingId, String status) {
         Lending lending = ao.find(Lending.class, Query.select().where("ID LIKE ?", lendingId))[0];
 
         lending.setDateChangedStatus(new Date());
@@ -115,7 +115,7 @@ public class LendingServiceImpl implements LendingService {
             lending.setDateOfIssue(new Date());
         }
 
-        if (status.equals(RETURNED)) {
+        if (status.equals("RETURNED")) {
             lending.setStatus(RETURNED);
             lending.setReturnedDate(new Date());
             Book book = lending.getBook();
@@ -125,14 +125,14 @@ public class LendingServiceImpl implements LendingService {
             }
         }
 
-        if (status.equals(LOST)) {
+        if (status.equals("LOST")) {
             lending.setStatus(LOST);
             lending.setReturnedDate(new Date());
             lending.setIsLost(true);
         }
 
         lending.save();
-        return status;
+        return new LendingModel(lending);
     }
 
     private boolean haveBooked(int bookId) {

@@ -8,7 +8,7 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-ic
 #set($name = $action.getName())
 
 #if($action.hasAccess())
-    #if($action.isUser())
+    #if($action.isLibraryAdmin())
 
     <div id="messaging"></div>
 

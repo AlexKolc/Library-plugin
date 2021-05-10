@@ -1,23 +1,36 @@
-function getAllUsersBooks() {
+function getAllLendigs() {
     AJS.$.ajax({
         type: "GET",
-        url: "/confluence/rest/library/1.0/lending/getLendingsByKey",
+        url: "/confluence/rest/library/1.0/lending/getLendings",
         dataType: "json",
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log(errorThrown)
         },
         success: function (data) {
-            fillUserBooks(data)
+            fillLendings(data)
         }
     })
 }
 
-function fillUserBooks(lendings) {
+function fillLendings(lendings) {
     var isChief = function (position) {
         return position === "На руках" || position === "Возвращена" || position === "Потеряна"
     };
 
-    var dataGrid = $("#gridContainer-user-books").dxDataGrid({
+    var isWaiting = function (position) {
+        return position === "Ожидается выдача"
+    };
+
+    var isOnHands = function (position) {
+        return position === "На руках"
+    };
+
+    var isLost = function (position) {
+        return position === "Потеряна"
+    };
+
+    console.log(lendings)
+    var dataGrid = $("#gridContainer-lendings-info").dxDataGrid({
         dataSource: lendings,
         columnsAutoWidth: true,
         showBorders: true,
@@ -38,8 +51,8 @@ function fillUserBooks(lendings) {
             allowUpdating: true,
             allowDeleting: function(e) {
                 return !isChief(e.row.data.status);
-            },
-            useIcons: true
+            }
+            // useIcons: true
         },
         onCellPrepared: function onCellPrepared(e) {
             if (e.rowType === "header") {
@@ -71,11 +84,32 @@ function fillUserBooks(lendings) {
         },
         columns: [
             {
+                type: "buttons",
+                width: 50,
+                buttons: [{
+                    name: "delete",
+                    icon: "trash",
+                    onClick: function (e) {
+                        deletelending(e.row.data.id);
+                        lendings.splice(e.row.rowIndex, 1)
+                        e.component.refresh(true);
+                        e.event.preventDefault();
+                    }
+                }]
+            }, {
                 caption: "Номер заказа",
                 dataField: "id",
-                width: 100,
+                width: 70,
                 allowHeaderFiltering: false,
                 allowSearch: false
+            }, {
+                caption: "Пользователь",
+                dataField: "userName",
+                width: 200,
+                allowHeaderFiltering: true,
+                headerFilter: {
+                    allowSearch: true
+                }
             }, {
                 caption: "Название книги",
                 dataField: "bookName",
@@ -99,7 +133,7 @@ function fillUserBooks(lendings) {
                 caption: "Дата выдачи",
                 dataField: "dateOfIssue",
                 dataType: "date",
-                width: 200,
+                width: 130,
                 headerFilter: {
                     allowSearch: true
                 }
@@ -107,14 +141,14 @@ function fillUserBooks(lendings) {
                 caption: "Дата возврата",
                 dataField: "returnDate",
                 dataType: "date",
-                width: 200,
+                width: 130,
                 headerFilter: {
                     allowSearch: true
                 }
             }, {
                 caption: "Статус",
                 dataField: "status",
-                width: 200,
+                width: 130,
                 headerFilter: {
                     allowSearch: true
                 }
@@ -122,20 +156,39 @@ function fillUserBooks(lendings) {
                 caption: "Дата изменения статуса",
                 dataField: "dateChangedStatus",
                 dataType: "date",
-                width: 200,
+                width: 130,
                 headerFilter: {
                     allowSearch: true
                 }
             }, {
                 type: "buttons",
-                width: 50,
+                width: 200,
                 buttons: [{
-                    name: "delete",
+                    text: "Выдана",
+                    visible: function(e) {
+                        return isWaiting(e.row.data.status);
+                    },
                     onClick: function (e) {
-                        deletelending(e.row.data.id);
-                        lendings.splice(e.row.rowIndex, 1)
-                        e.component.refresh(true);
-                        e.event.preventDefault();
+                        changeStatus(e.row.data.id, e.row.data.status, 0)
+                        getAllLendigs()
+                    }
+                }, {
+                    text: "Возвращена",
+                    visible: function(e) {
+                        return isOnHands(e.row.data.status) || isLost(e.row.data.status);
+                    },
+                    onClick: function (e) {
+                        changeStatus(e.row.data.id, e.row.data.status, 0)
+                        getAllLendigs()
+                    }
+                }, {
+                    text: "Потеряна",
+                    visible: function(e) {
+                        return isOnHands(e.row.data.status);
+                    },
+                    onClick: function (e) {
+                        changeStatus(e.row.data.id, e.row.data.status, 1)
+                        getAllLendigs()
                     }
                 }]
             }
@@ -180,11 +233,46 @@ function fillUserBooks(lendings) {
     });
 }
 
+function changeStatus(lendingId, curStatus, isLost) {
+    var status
+    if (curStatus === "Ожидается выдача") {
+        status = "ON_HANDS"
+    }
+    if ((curStatus === "На руках" || curStatus === "Потеряна") && !isLost) {
+        status = "RETURNED"
+    }
+    if (curStatus === "На руках" && isLost) {
+        status = "LOST"
+    }
+
+    var lending
+    AJS.$.ajax({
+        type: "GET",
+        url: "/confluence/rest/library/1.0/lending/changeStatus",
+        contentType: "application/json",
+        data: {status: status, lending_id: lendingId},
+        success: function (data) {
+            AJS.messages.success("#messaging", {
+                title: "Успешно",
+                body: "Статус изменен",
+                fadeout: true
+            });
+        },
+        error: function () {
+            AJS.messages.error("#messaging", {
+                title: "ОШИБКА",
+                body: "Статуз не изменен, попробуйте еще раз!",
+                fadeout: true
+            });
+        }
+    });
+    return lending
+}
+
 function deletelending(lendingId) {
     var lending = {
         id: lendingId
     }
-    var status = true
     AJS.$.ajax({
         type: "POST",
         url: "/confluence/rest/library/1.0/lending/deleteLending",
@@ -203,8 +291,11 @@ function deletelending(lendingId) {
                 body: "Заказ не отменен, попробуйте еще раз!",
                 fadeout: true
             });
-            status = false
         }
     });
-    return status
 }
+
+// function updateTable(e, data) {
+//     console.log(data)
+//
+// }

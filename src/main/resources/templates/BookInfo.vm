@@ -8,7 +8,7 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-dialog2")
 #set($baseurl = $settingsManager.getGlobalSettings().getBaseUrl())
 
 #if($action.hasAccess())
-    #if($action.isUser())
+    #if($action.isUser() || $action.isLibraryAdmin())
 
 
     <script>
@@ -88,6 +88,10 @@ $webResourceManager.requireResource("com.atlassian.auiplugin:aui-dialog2")
                                     <div class="info-item">
                                         <div class="info-label">Формат:</div>
                                         <div class="info-value" id="book-edition-type"></div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Теги:</div>
+                                        <div class="info-value" id="book-tags"></div>
                                     </div>
                                 </div>
                             </div>

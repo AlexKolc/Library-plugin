@@ -58,6 +58,7 @@
     <resource type="download" name="BookInfo.css" location="/css/BookInfo.css"/>
     <resource type="download" name="AddBook.js" location="/js/AddBook.js"/>
     <resource type="download" name="AddTag.js" location="/js/AddTag.js"/>
+    <resource type="download" name="LendingsInfo.js" location="/js/LendingsInfo.js"/>
     <resource type="download" name="images/" location="/images"/>
     <context>Library</context>
   </web-resource>
@@ -80,6 +81,9 @@
       </action>
       <action name="add-tag" class="com.atlassian.confluence.action.AddTagAction">
         <result name="success" type="velocity">/templates/AddTag.vm</result>
+      </action>
+      <action name="lendings-info" class="com.atlassian.confluence.action.LendingsInfoAction">
+        <result name="success" type="velocity">/templates/LendingsInfo.vm</result>
       </action>
     </package>
   </xwork>

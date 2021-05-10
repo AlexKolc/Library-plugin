@@ -31,6 +31,11 @@ function fillCatalog(books) {
         headerFilter: {
             visible: true
         },
+        onRowPrepared: function (e) {
+            if (e.rowType === "data" && e.rowIndex % 2 === 0) {
+                e.rowElement.css("background-color", "#bfbfbf58");
+            }
+        },
         columns: [
             {
                 caption: "ID Книги",
