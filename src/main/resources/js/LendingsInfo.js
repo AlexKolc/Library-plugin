@@ -169,7 +169,7 @@ function fillLendings(lendings) {
                         return isWaiting(e.row.data.status);
                     },
                     onClick: function (e) {
-                        changeStatus(e.row.data.id, e.row.data.status, 0)
+                        var lending = changeStatus(e.row.data.id, e.row.data.status, 0)
                         getAllLendigs()
                     }
                 }, {
@@ -251,7 +251,9 @@ function changeStatus(lendingId, curStatus, isLost) {
         url: "/confluence/rest/library/1.0/lending/changeStatus",
         contentType: "application/json",
         data: {status: status, lending_id: lendingId},
+        async: false,
         success: function (data) {
+            lending = data
             AJS.messages.success("#messaging", {
                 title: "Успешно",
                 body: "Статус изменен",
@@ -261,7 +263,7 @@ function changeStatus(lendingId, curStatus, isLost) {
         error: function () {
             AJS.messages.error("#messaging", {
                 title: "ОШИБКА",
-                body: "Статуз не изменен, попробуйте еще раз!",
+                body: "Статуc не изменен, попробуйте еще раз!",
                 fadeout: true
             });
         }

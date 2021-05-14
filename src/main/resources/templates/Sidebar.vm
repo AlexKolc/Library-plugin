@@ -71,7 +71,7 @@
                             <div class="aui-nav-heading" title="Admin"><strong>Администрирование</strong></div>
                             <ul class="aui-nav" title="Page actions">
                                 <li>
-                                    <a class="aui-nav-item" href="#" title="Управление выдачами">
+                                    <a class="aui-nav-item" href="$baseurl/library/control-roles.action" title="Управление выдачами">
                                         <span class="aui-icon aui-icon-small aui-iconfont-people-group"></span>
                                         <span class="aui-nav-item-label">Управление ролями</span>
                                     </a>

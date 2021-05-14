@@ -56,6 +56,13 @@ function addToWaiting(bookId) {
                     fadeout: true
                 });
             },
+            207: function() {
+                AJS.messages.error("#messaging", {
+                    title: "Книга не записана!",
+                    body: "У вас на руках более 2х книг",
+                    fadeout: true
+                });
+            },
             208: function() {
                 AJS.messages.error("#messaging", {
                     title: "Книга уже у вас на руках",

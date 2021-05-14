@@ -1,5 +1,5 @@
 function getAllBooks() {
-    var books = AJS.$.ajax({
+    AJS.$.ajax({
         type: "GET",
         url: "/confluence/rest/library/1.0/book/getBooks",
         dataType: "json",

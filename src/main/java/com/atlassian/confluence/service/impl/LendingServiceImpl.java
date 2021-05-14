@@ -6,8 +6,14 @@ import com.atlassian.confluence.ao.Lending;
 import com.atlassian.confluence.mail.template.ConfluenceMailQueueItem;
 import com.atlassian.confluence.model.LendingModel;
 import com.atlassian.confluence.service.LendingService;
+import com.atlassian.mail.Email;
+import com.atlassian.mail.MailFactory;
+import com.atlassian.mail.server.SMTPMailServer;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.user.UserManager;
+import com.sun.mail.imap.IMAPProvider;
+import com.sun.mail.pop3.POP3Provider;
+import com.sun.mail.smtp.SMTPProvider;
 import net.java.ao.Query;
 import com.atlassian.core.task.MultiQueueTaskManager;
 import com.atlassian.mail.queue.MailQueueItem;
@@ -144,22 +150,39 @@ public class LendingServiceImpl implements LendingService {
         lending.setDateChangedStatus(new Date());
         lending.save();
 
-//        sendEmail(lending.getUserName(), lending.getUserEmail(), lending.getBook().getName());
+        createMessage(lending.getUserName(), lending.getUserEmail(), lending.getBook().getName());
         return true;
     }
 
-//    private void sendEmail(String userName, String userEmail, String bookName) {
-//        String subjectEmail = "Библиотека BIA";
-//        String bodyMessage = "Здравствуйте!\n"
-//                + "Уведомляем Вас о том, что появился свободный экземпляр книги \""
-//                + bookName + "\".\n"
-//                + "Книги ожидает вас в библиотеке." + "\n\n"
-//                + "---\n"
-//                + "С уважением,"
-//                + "Библиотека BIA";
-//        MailQueueItem mailQueueItem = new ConfluenceMailQueueItem(userEmail, subjectEmail, bodyMessage, MIME_TYPE_HTML);
-//        mailService.sendEmail(mailQueueItem);
-//    }
+    public void sendEmail(String body, String subject, String emailAddress)  {
+        SMTPMailServer mailServer = MailFactory.getServerManager().getDefaultSMTPMailServer();
+        Email email = new Email(emailAddress);
+        email.setSubject(subject);
+        email.setMimeType("text/html");
+        email.setBody(body);
+        try {
+            if (mailServer != null) {
+                mailServer.getSession().addProvider(new IMAPProvider());
+                mailServer.getSession().addProvider(new POP3Provider());
+                mailServer.getSession().addProvider(new SMTPProvider());
+                mailServer.send(email);
+            }
+        }
+        catch (Exception e){
+        }
+    }
+
+    private void createMessage(String userName, String userEmail, String bookName) {
+        String subjectEmail = "Библиотека BIA";
+        String bodyMessage = "Здравствуйте!<br>"
+                + "Уведомляем Вас о том, что появился свободный экземпляр книги \""
+                + bookName + "\".<br>"
+                + "Книга ожидает вас в библиотеке." + "<br><br>"
+                + "---<br>"
+                + "С уважением,<br>"
+                + "Библиотека BIA";
+        sendEmail(bodyMessage, subjectEmail, userEmail);
+    }
 
     @Override
     public void deleteLending(int id) {

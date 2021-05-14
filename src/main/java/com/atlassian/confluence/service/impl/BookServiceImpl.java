@@ -16,13 +16,45 @@ public class BookServiceImpl implements BookService {
     @ComponentImport
     private final ActiveObjects ao;
 
-    @ComponentImport
-    private final UserManager userManager;
-
     @Inject
-    public BookServiceImpl(ActiveObjects ao, UserManager userManager) {
+    public BookServiceImpl(ActiveObjects ao) {
         this.ao = ao;
-        this.userManager = userManager;
+    }
+
+    @Override
+    public BookModel[] getAllBooks() {
+        Book[] books = ao.find(Book.class);
+        BookModel[] bookModels = new BookModel[books.length];
+        for (int i = 0; i < books.length; i++) {
+            bookModels[i] = new BookModel(books[i]);
+            StringBuilder authorsStr = new StringBuilder();
+            Author[] authors = books[i].getAuthors();
+            for (int j = 0; j < authors.length; j++) {
+                authorsStr.append(authors[j].getFullName());
+                if (j != authors.length - 1)
+                    authorsStr.append(", ");
+            }
+            bookModels[i].setAuthors(authorsStr.toString());
+
+            StringBuilder tagsStr = new StringBuilder();
+            Tag[] tags = books[i].getTags();
+            for (int j = 0; j < tags.length; j++) {
+                tagsStr.append(tags[j].getName());
+                if (j != tags.length - 1)
+                    tagsStr.append(", ");
+            }
+            bookModels[i].setTags(tagsStr.toString());
+
+            StringBuilder editionStr = new StringBuilder();
+            EditionType[] editionTypes = books[i].getEditionTypes();
+            for (int j = 0; j < editionTypes.length; j++) {
+                editionStr.append(editionTypes[j].getTypeName());
+                if (j != editionTypes.length - 1)
+                    editionStr.append(", ");
+            }
+            bookModels[i].setEditionTypes(editionStr.toString());
+        }
+        return bookModels;
     }
 
     @Override
@@ -122,41 +154,7 @@ public class BookServiceImpl implements BookService {
         ao.delete(book);
     }
 
-    @Override
-    public BookModel[] getAllBooks() {
-        Book[] books = ao.find(Book.class);
-        BookModel[] bookModels = new BookModel[books.length];
-        for (int i = 0; i < books.length; i++) {
-            bookModels[i] = new BookModel(books[i]);
-            StringBuilder authorsStr = new StringBuilder();
-            Author[] authors = books[i].getAuthors();
-            for (int j = 0; j < authors.length; j++) {
-                authorsStr.append(authors[j].getFullName());
-                if (j != authors.length - 1)
-                    authorsStr.append(", ");
-            }
-            bookModels[i].setAuthors(authorsStr.toString());
 
-            StringBuilder tagsStr = new StringBuilder();
-            Tag[] tags = books[i].getTags();
-            for (int j = 0; j < tags.length; j++) {
-                tagsStr.append(tags[j].getName());
-                if (j != tags.length - 1)
-                    tagsStr.append(", ");
-            }
-            bookModels[i].setTags(tagsStr.toString());
-
-            StringBuilder editionStr = new StringBuilder();
-            EditionType[] editionTypes = books[i].getEditionTypes();
-            for (int j = 0; j < editionTypes.length; j++) {
-                editionStr.append(editionTypes[j].getTypeName());
-                if (j != editionTypes.length - 1)
-                    editionStr.append(", ");
-            }
-            bookModels[i].setEditionTypes(editionStr.toString());
-        }
-        return bookModels;
-    }
 
     @Override
     public BookModel getBookById(int id) {

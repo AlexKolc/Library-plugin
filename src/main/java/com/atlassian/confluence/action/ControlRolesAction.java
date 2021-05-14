@@ -3,10 +3,10 @@ package com.atlassian.confluence.action;
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.service.AccessService;
 
-public class CatalogAction extends ConfluenceActionSupport {
+public class ControlRolesAction extends ConfluenceActionSupport {
     public final AccessService accessService;
 
-    public CatalogAction(AccessService accessService) {
+    public ControlRolesAction(AccessService accessService) {
         this.accessService = accessService;
     }
 
@@ -21,7 +21,9 @@ public class CatalogAction extends ConfluenceActionSupport {
     public boolean isLibraryAdmin() {
         return accessService.isLibraryAdmin();
     }
+
+    public boolean isAdmin() {
+        return accessService.isAdmin();
+    }
 }
-
-
 

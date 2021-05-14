@@ -4,13 +4,11 @@
   <plugin-info> 
     <description>${project.description}</description>  
     <version>${project.version}</version>  
-    <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
-    <param name="plugin-icon">images/pluginIcon.png</param>  
-    <param name="plugin-logo">images/pluginLogo.png</param> 
-  </plugin-info>  
-  <!-- add our i18n resource -->  
-  <resource type="i18n" name="i18n" location="Library"/>  
-  <!-- add our web resources -->
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <resource type="i18n" name="i18n" location="Library"/>
 
   <ao key="ao-module">
     <description>The module configuring the Active Objects service used by this plugin</description>
@@ -29,20 +27,9 @@
     <description key="library-entity.desc">Adds the "Library" action into users's menu</description>
     <label key="Библиотека"/>
     <link linkId="library-entity">/library/main.action</link>
-<!--    <link linkId="library-entity">/secure/Library.jspa</link>-->
   </web-item>
 
-<!--  <servlet name="Library servlet" key="library-servlet" class="com.atlassian.confluence.servlet.LibraryServlet">-->
-<!--    <description key="library-servlet.desc">A servlet for library page</description>-->
-<!--    <url-pattern>/library</url-pattern>-->
-<!--&lt;!&ndash;    <component-import key="velocity-renderer" interface="com.atlassian.templaterenderer.TemplateRenderer" />&ndash;&gt;-->
-<!--  </servlet>-->
-
-<!--  <routing key="library-routing" path="/secure">-->
-<!--    <route from="Library.jspa" to="/plugins/servlet/library"/>-->
-<!--  </routing>-->
-
-  <rest key="libraryRest" path="/library" version="1.0" context="host:port">
+  <rest key="library-rest" path="/library" version="1.0" context="host:port">
     <description>Rest-service: response on JS requests</description>
   </rest>
 
@@ -59,9 +46,11 @@
     <resource type="download" name="AddBook.js" location="/js/AddBook.js"/>
     <resource type="download" name="AddTag.js" location="/js/AddTag.js"/>
     <resource type="download" name="LendingsInfo.js" location="/js/LendingsInfo.js"/>
+    <resource type="download" name="ControlRoles.js" location="/js/ControlRoles.js"/>
     <resource type="download" name="images/" location="/images"/>
     <context>Library</context>
   </web-resource>
+
   <xwork key="library-web-works">
     <package name="library" extends="default" namespace="/library">
       <action name="main" class="com.atlassian.confluence.action.MainAction">
@@ -84,6 +73,9 @@
       </action>
       <action name="lendings-info" class="com.atlassian.confluence.action.LendingsInfoAction">
         <result name="success" type="velocity">/templates/LendingsInfo.vm</result>
+      </action>
+      <action name="control-roles" class="com.atlassian.confluence.action.ControlRolesAction">
+        <result name="success" type="velocity">/templates/ControlRoles.vm</result>
       </action>
     </package>
   </xwork>

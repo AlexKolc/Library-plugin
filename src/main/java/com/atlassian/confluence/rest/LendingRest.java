@@ -12,21 +12,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Enumeration;
-import java.util.Objects;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Path("/lending")
 public class LendingRest {
-    private static final Logger log = LoggerFactory.getLogger(LendingModel.class);
-    private final UserManager userManager;
     private final LendingService lendingService;
 
     @Inject
-    public LendingRest(@ComponentImport UserManager userManager, LendingService lendingService) {
-        this.userManager = userManager;
+    public LendingRest(LendingService lendingService) {
         this.lendingService = lendingService;
     }
 
@@ -56,7 +48,7 @@ public class LendingRest {
     @GET
 //    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/addToBooked")
-    public Response addToBooked(@Context HttpServletRequest request) {
+        public Response addToBooked(@Context HttpServletRequest request) {
         int bookId = Integer.parseInt(request.getParameter("book_id"));
         int status = lendingService.addLendingBooked(bookId);
         if (status == 200)

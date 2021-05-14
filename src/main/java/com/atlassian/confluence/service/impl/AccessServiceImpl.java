@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Named
 public class AccessServiceImpl implements AccessService {
-    private final String USER_GROUP = "confluence-users";
+    private final String USER_GROUP = "library-users";
     private final String ADMIN_LIBRARY_GROUP = "library-administrators";
     private final String ADMIN_GROUP = "confluence-administrators";
 

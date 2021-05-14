@@ -95,7 +95,6 @@ function sendNewBookData(book) {
         contentType: "application/json",
         data: JSON.stringify(book),
         success: function (data) {
-            //successFunction(data);
             AJS.messages.success("#messaging", {
                 title: "Успешно",
                 body: "Книга успешно добавлена!",
